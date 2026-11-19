@@ -294,10 +294,10 @@
     }
 
     .cloud-char-slot {
-      width: 50px;
-      height: 50px;
+      width: 52px;
+      height: 52px;
       border-radius: 14px;
-      background: rgba(26, 17, 0, 0.85);
+      background: rgba(26, 17, 0, 0.88);
       border: 2px solid #FFF3B0;
       display: flex;
       flex-direction: column;
@@ -305,7 +305,7 @@
       justify-content: center;
       overflow: hidden;
       flex-shrink: 0;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
       position: relative;
     }
 
@@ -365,6 +365,23 @@
 
     .primary-btn:active {
       transform: scale(0.97);
+    }
+
+    .file-pick-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      background: var(--kinto-gold);
+      color: var(--kinto-dark);
+      border-radius: 11px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-bottom: 8px;
+      text-align: center;
     }
 
     .search-box {
@@ -482,7 +499,7 @@
       height: 46px;
       border-radius: 12px;
       background: var(--surface-2);
-      border: 1.5px dashed var(--border);
+      border: 1.5px solid var(--goku-orange);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -497,15 +514,6 @@
       object-fit: cover;
       object-position: top center;
       display: block;
-    }
-
-    .char-avatar-hint {
-      font-size: 9px;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-align: center;
-      line-height: 1.1;
-      padding: 2px;
     }
 
     .muscle-card-bottom {
@@ -801,7 +809,22 @@
       margin-bottom: 8px;
     }
 
-    /* Bottom Navigation Bar: 3 voci (Sfere, Falsi Miti, Integratori) */
+    .code-export-box {
+      width: 100%;
+      height: 150px;
+      background: #070709;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: #8BE9FD;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 11px;
+      padding: 10px;
+      margin-top: 10px;
+      resize: none;
+      outline: none;
+    }
+
+    /* Bottom Navigation Bar: 4 voci (Sfere, Falsi Miti, Integratori, Impostazioni) */
     nav {
       position: fixed;
       bottom: 0;
@@ -812,10 +835,10 @@
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-top: 1px solid var(--border);
-      padding: 8px 8px calc(var(--safe-bottom) + 6px);
+      padding: 8px 4px calc(var(--safe-bottom) + 6px);
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
     }
 
     .nav-item {
@@ -826,7 +849,7 @@
       flex-direction: column;
       align-items: center;
       gap: 4px;
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
       cursor: pointer;
       padding: 4px 0;
@@ -844,9 +867,13 @@
       color: var(--green);
     }
 
+    .nav-item[data-tab="impostazioni"].active {
+      color: var(--blue);
+    }
+
     .nav-item svg {
-      width: 21px;
-      height: 21px;
+      width: 20px;
+      height: 20px;
     }
 
     .modal-backdrop {
@@ -960,7 +987,7 @@
     }
 
     .paste-box img {
-      max-height: 110px;
+      max-height: 120px;
       object-fit: contain;
       border-radius: 8px;
     }
@@ -983,13 +1010,12 @@
       <button id="backBtn" class="back-btn" onclick="goBack()">‹ Sfere</button>
       <h1 id="headerTitle">MANUALE <span>SALA</span></h1>
     </div>
-    <button class="backup-btn" onclick="openBackupModal()">
+    <button class="backup-btn" onclick="switchTab('impostazioni')">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-        <polyline points="7 10 12 15 17 10"/>
-        <line x1="12" y1="15" x2="12" y2="3"/>
+        <polyline points="16 18 22 12 16 6"/>
+        <polyline points="8 6 2 12 8 18"/>
       </svg>
-      Backup
+      Codice
     </button>
   </header>
 
@@ -1018,6 +1044,13 @@
       </svg>
       Integratori
     </button>
+    <button class="nav-item" data-tab="impostazioni" onclick="switchTab('impostazioni')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
+      Impostazioni
+    </button>
   </nav>
 
   <div id="formModal" class="modal-backdrop">
@@ -1030,27 +1063,8 @@
     </div>
   </div>
 
-  <div id="backupModal" class="modal-backdrop">
-    <div class="modal-sheet">
-      <div class="modal-header">
-        <span class="modal-title">Backup & Trasferimento Dati</span>
-        <button class="close-btn" onclick="closeModal('backupModal')">✕</button>
-      </div>
-      <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 16px;">
-        Esporta tutti i tuoi esercizi, le foto dei personaggi, le tecniche, le specializzazioni, la periodizzazione, gli ormoni, le review scientifiche, il glossario, i falsi miti e gli integratori in un file <strong>.json</strong>.
-      </p>
-      <button class="primary-btn" style="width: 100%; justify-content: center; padding: 13px; margin-bottom: 12px;" onclick="exportData()">
-        Scarica File di Backup (.json)
-      </button>
-      <label style="display: block; width: 100%; text-align: center; background: var(--surface-2); border: 1px solid var(--border); padding: 13px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer;">
-        Importa File di Backup (.json)
-        <input type="file" accept=".json" style="display: none;" onchange="importData(event)" />
-      </label>
-    </div>
-  </div>
-
   <script>
-    const STORAGE_KEY = 'manuale_sala_pesi_db7_v4';
+    const STORAGE_KEY = 'manuale_sala_pesi_db7_v6';
 
     const MUSCLE_GROUPS = [
       'Pettorali',
@@ -1063,18 +1077,18 @@
 
     const EQUIPMENTS = ['Tutti', 'Bilanciere', 'Manubri', 'Cavi', 'Macchine', 'Corpo libero'];
 
-    // File immagine predefiniti nella cartella GitHub Pages accanto a index.html
-    const GITHUB_IMAGE_FALLBACKS = {
-      exercises: './cap1.jpg',
-      intensity: './cap2.png',
-      specializations: './cap3.jpg',
-      periodization: './cap4.jpg',
-      hormones: './cap5.png',
-      reviews: './cap6.jpg',
-      glossary: './cap7.png',
-      freezer: './freezer.jpg'
+    const GITHUB_IMAGE_BASES = {
+      exercises: './cap1',
+      intensity: './cap2',
+      specializations: './cap3',
+      periodization: './cap4',
+      hormones: './cap5',
+      reviews: './cap6',
+      glossary: './cap7',
+      freezer: './freezer'
     };
 
+    /* DEFAULT_DATA_START */
     const DEFAULT_DATA = {
       cloudAvatars: {
         exercises: '',
@@ -1228,6 +1242,7 @@
         }
       ]
     };
+    /* DEFAULT_DATA_END */
 
     let state = {
       data: loadData(),
@@ -1235,38 +1250,39 @@
       selectedMuscle: null,
       selectedExerciseId: null,
       equipmentFilter: 'Tutti',
-      searchQuery: ''
+      searchQuery: '',
+      generatedHtmlCode: ''
     };
 
     function loadData() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY) ||
-                    localStorage.getItem('manuale_sala_pesi_db7_v3') ||
-                    localStorage.getItem('manuale_sala_pesi_db7_v2');
+                    localStorage.getItem('manuale_sala_pesi_db7_v5') ||
+                    localStorage.getItem('manuale_sala_pesi_db7_v4');
         if (!raw) return JSON.parse(JSON.stringify(DEFAULT_DATA));
         const parsed = JSON.parse(raw);
         return {
           cloudAvatars: {
-            exercises: parsed.cloudAvatars?.exercises || '',
-            intensity: parsed.cloudAvatars?.intensity || '',
-            specializations: parsed.cloudAvatars?.specializations || '',
-            periodization: parsed.cloudAvatars?.periodization || '',
-            hormones: parsed.cloudAvatars?.hormones || '',
-            reviews: parsed.cloudAvatars?.reviews || '',
-            glossary: parsed.cloudAvatars?.glossary || '',
-            freezer: parsed.cloudAvatars?.freezer || ''
+            exercises: parsed.cloudAvatars?.exercises || DEFAULT_DATA.cloudAvatars.exercises,
+            intensity: parsed.cloudAvatars?.intensity || DEFAULT_DATA.cloudAvatars.intensity,
+            specializations: parsed.cloudAvatars?.specializations || DEFAULT_DATA.cloudAvatars.specializations,
+            periodization: parsed.cloudAvatars?.periodization || DEFAULT_DATA.cloudAvatars.periodization,
+            hormones: parsed.cloudAvatars?.hormones || DEFAULT_DATA.cloudAvatars.hormones,
+            reviews: parsed.cloudAvatars?.reviews || DEFAULT_DATA.cloudAvatars.reviews,
+            glossary: parsed.cloudAvatars?.glossary || DEFAULT_DATA.cloudAvatars.glossary,
+            freezer: parsed.cloudAvatars?.freezer || DEFAULT_DATA.cloudAvatars.freezer
           },
           muscleAvatars: {
-            'Pettorali': parsed.muscleAvatars?.['Pettorali'] || '',
-            'Dorsali': parsed.muscleAvatars?.['Dorsali'] || '',
-            'Bicipiti': parsed.muscleAvatars?.['Bicipiti'] || '',
-            'Tricipiti': parsed.muscleAvatars?.['Tricipiti'] || '',
-            'Gambe': parsed.muscleAvatars?.['Gambe'] || '',
-            'Core': parsed.muscleAvatars?.['Core'] || ''
+            'Pettorali': parsed.muscleAvatars?.['Pettorali'] || DEFAULT_DATA.muscleAvatars['Pettorali'],
+            'Dorsali': parsed.muscleAvatars?.['Dorsali'] || DEFAULT_DATA.muscleAvatars['Dorsali'],
+            'Bicipiti': parsed.muscleAvatars?.['Bicipiti'] || DEFAULT_DATA.muscleAvatars['Bicipiti'],
+            'Tricipiti': parsed.muscleAvatars?.['Tricipiti'] || DEFAULT_DATA.muscleAvatars['Tricipiti'],
+            'Gambe': parsed.muscleAvatars?.['Gambe'] || DEFAULT_DATA.muscleAvatars['Gambe'],
+            'Core': parsed.muscleAvatars?.['Core'] || DEFAULT_DATA.muscleAvatars['Core']
           },
-          exercises: parsed.exercises || [],
-          intensity: parsed.intensity || [],
-          specializations: parsed.specializations || [],
+          exercises: parsed.exercises || DEFAULT_DATA.exercises,
+          intensity: parsed.intensity || DEFAULT_DATA.intensity,
+          specializations: parsed.specializations || DEFAULT_DATA.specializations,
           periodization: parsed.periodization || JSON.parse(JSON.stringify(DEFAULT_DATA.periodization)),
           hormones: parsed.hormones || JSON.parse(JSON.stringify(DEFAULT_DATA.hormones)),
           reviews: parsed.reviews || JSON.parse(JSON.stringify(DEFAULT_DATA.reviews)),
@@ -1280,7 +1296,11 @@
     }
 
     function saveData() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
+      } catch (e) {
+        alert('Spazio del browser quasi pieno. Usa Impostazioni -> Genera Codice per salvare tutto su GitHub!');
+      }
     }
 
     function renderDragonBallSvg(stars) {
@@ -1334,7 +1354,7 @@
           switchTab('sfere');
           return;
         }
-      } else if (state.tab !== 'sfere' && state.tab !== 'falsimiti' && state.tab !== 'integratori') {
+      } else if (!['sfere', 'falsimiti', 'integratori', 'impostazioni'].includes(state.tab)) {
         switchTab('sfere');
         return;
       }
@@ -1346,7 +1366,7 @@
       const backBtn = document.getElementById('backBtn');
       const headerTitle = document.getElementById('headerTitle');
 
-      const isRootTab = state.tab === 'sfere' || state.tab === 'falsimiti' || state.tab === 'integratori';
+      const isRootTab = ['sfere', 'falsimiti', 'integratori', 'impostazioni'].includes(state.tab);
       backBtn.classList.toggle('visible', !isRootTab);
       if (!isRootTab && !state.selectedMuscle && !state.selectedExerciseId) {
         backBtn.textContent = '‹ Sfere';
@@ -1363,6 +1383,9 @@
       } else if (state.tab === 'integratori') {
         headerTitle.innerHTML = 'GUIDA <span>INTEGRATORI</span>';
         renderIntegratori(container);
+      } else if (state.tab === 'impostazioni') {
+        headerTitle.innerHTML = 'IMPOSTAZIONI <span>GITHUB</span>';
+        renderImpostazioni(container);
       } else if (state.tab === 'exercises') {
         if (state.selectedExerciseId) {
           headerTitle.innerHTML = 'SCHEDA <span>ESERCIZIO</span>';
@@ -1395,11 +1418,26 @@
       }
     }
 
-    function renderAvatarContent(savedUrl, fallbackPath, label) {
+    function tryNextImgExtension(imgEl) {
+      const base = imgEl.dataset.base;
+      const step = parseInt(imgEl.dataset.step || '0', 10);
+      const exts = ['.png', '.jpeg', '.JPG', '.PNG', '.JPEG', '.webp'];
+      if (base && step < exts.length) {
+        imgEl.dataset.step = String(step + 1);
+        imgEl.src = base + exts[step];
+      } else {
+        imgEl.style.display = 'none';
+        if (imgEl.nextElementSibling) {
+          imgEl.nextElementSibling.style.display = 'block';
+        }
+      }
+    }
+
+    function renderAvatarContent(savedUrl, basePath, label) {
       if (savedUrl) {
         return `<img src="${escapeHtml(savedUrl)}" alt="${escapeHtml(label)}" />`;
       }
-      return `<img src="${escapeHtml(fallbackPath)}" alt="${escapeHtml(label)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" /><span class="cloud-char-placeholder" style="display:none;">+ Foto<br>${escapeHtml(label)}</span>`;
+      return `<img src="${escapeHtml(basePath)}.jpg" data-base="${escapeHtml(basePath)}" data-step="0" alt="${escapeHtml(label)}" onerror="tryNextImgExtension(this)" /><span class="cloud-char-placeholder" style="display:none;">+ Foto<br>${escapeHtml(label)}</span>`;
     }
 
     function renderSfere(container) {
@@ -1471,13 +1509,13 @@
 
       container.innerHTML = `
         <div class="home-intro">
-          <p>Scegli una Sfera sulla Nuvola Speedy (tocca il riquadro foto per personalizzare):</p>
+          <p>Tocca il riquadro "+ Foto" su ogni Nuvola per inserire subito il personaggio:</p>
         </div>
 
         <div class="chapters-grid">
           ${chapters.map(ch => {
             const avatar = state.data.cloudAvatars[ch.tab];
-            const fallback = GITHUB_IMAGE_FALLBACKS[ch.tab];
+            const base = GITHUB_IMAGE_BASES[ch.tab];
             return `
               <div class="kinto-cloud" onclick="switchTab('${ch.tab}')">
                 <div class="kinto-tail"></div>
@@ -1493,7 +1531,7 @@
                 </div>
                 <div class="chapter-right">
                   <div class="cloud-char-slot" title="Imposta foto ${ch.charName}" onclick="event.stopPropagation(); openCloudAvatarForm('${ch.tab}', '${escapeHtml(ch.charName)}')">
-                    ${renderAvatarContent(avatar, fallback, ch.shortLabel)}
+                    ${renderAvatarContent(avatar, base, ch.shortLabel)}
                   </div>
                   <span class="chapter-arrow">›</span>
                 </div>
@@ -1502,6 +1540,76 @@
           }).join('')}
         </div>
       `;
+    }
+
+    function renderImpostazioni(container) {
+      container.innerHTML = `
+        <div class="detail-box" style="border-color: rgba(58, 134, 255, 0.45);">
+          <div class="item-top">
+            <div class="item-title" style="font-size: 17px;">1. Esporta Codice Completo per GitHub</div>
+            <span class="badge blue">Consigliato</span>
+          </div>
+          <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 14px;">
+            Premi il pulsante qui sotto per generare e copiare <strong>l’intero file index.html</strong> con già dentro <strong>tutte le foto</strong> e tutti i testi che hai caricato su questo telefono. Poi invialo sul PC e incollalo su GitHub!
+          </p>
+          <button class="primary-btn" style="width:100%; justify-content:center; padding:14px; background: var(--blue); box-shadow: 0 4px 14px rgba(58, 134, 255, 0.3);" onclick="generateAndCopyFullCode()">
+            Genera e Copia Codice Completo
+          </button>
+          <div id="codeCopyStatus" style="font-size: 12.5px; color: var(--green); font-weight: 700; margin-top: 10px; display: none;"></div>
+          <textarea id="generatedCodeBox" class="code-export-box" readonly placeholder="Il codice completo apparirà qui pronto per essere copiato..." style="display: ${state.generatedHtmlCode ? 'block' : 'none'};">${escapeHtml(state.generatedHtmlCode)}</textarea>
+        </div>
+
+        <div class="detail-box">
+          <div class="item-top">
+            <div class="item-title" style="font-size: 16px;">2. Backup / Ripristino File (.json)</div>
+            <span class="badge amber">Opzionale</span>
+          </div>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
+            Condividi o salva una copia di sicurezza dei dati in formato .json tramite il menu iPhone / PC.
+          </p>
+          <button class="secondary-btn" style="width: 100%; margin-bottom: 10px; border-color: var(--kinto-gold); color: var(--kinto-gold);" onclick="exportData()">
+            Condividi / Scarica Backup (.json)
+          </button>
+          <label style="display: block; width: 100%; text-align: center; background: var(--surface-2); border: 1px solid var(--border); padding: 11px; border-radius: 12px; font-size: 13.5px; font-weight: 700; cursor: pointer;">
+            Importa File di Backup (.json)
+            <input type="file" accept=".json" style="display: none;" onchange="importData(event)" />
+          </label>
+        </div>
+      `;
+    }
+
+    async function generateAndCopyFullCode() {
+      const currentDocHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const startMarker = '/* DEFAULT_DATA_START */';
+      const endMarker = '/* DEFAULT_DATA_END */';
+      const startIdx = currentDocHtml.indexOf(startMarker);
+      const endIdx = currentDocHtml.indexOf(endMarker);
+
+      let finalCode = currentDocHtml;
+      if (startIdx !== -1 && endIdx !== -1) {
+        const serializedData = JSON.stringify(state.data, null, 2);
+        const replacement = `${startMarker}\n    const DEFAULT_DATA = ${serializedData};\n    `;
+        finalCode = currentDocHtml.slice(0, startIdx) + replacement + currentDocHtml.slice(endIdx);
+      }
+
+      state.generatedHtmlCode = finalCode;
+      const box = document.getElementById('generatedCodeBox');
+      const status = document.getElementById('codeCopyStatus');
+      box.style.display = 'block';
+      box.value = finalCode;
+
+      try {
+        await navigator.clipboard.writeText(finalCode);
+        status.style.display = 'block';
+        status.style.color = 'var(--green)';
+        status.textContent = '✓ Codice completo copiato negli appunti! Ora incollalo su WhatsApp/Mail per aprirlo sul PC e metterlo su GitHub.';
+      } catch (err) {
+        box.focus();
+        box.select();
+        status.style.display = 'block';
+        status.style.color = 'var(--kinto-gold)';
+        status.textContent = 'Codice generato nel riquadro qui sotto: tocca dentro il riquadro, fai "Seleziona tutto" e "Copia".';
+      }
     }
 
     function renderFalsiMiti(container) {
@@ -1519,7 +1627,7 @@
             <div class="villain-desc">Luoghi comuni smontati con biomeccanica, fisiologia e letteratura scientifica.</div>
           </div>
           <div class="villain-avatar" title="Imposta foto Freezer" onclick="openCloudAvatarForm('freezer', 'Freezer')">
-            ${renderAvatarContent(freezerAvatar, GITHUB_IMAGE_FALLBACKS.freezer, 'Freezer')}
+            ${renderAvatarContent(freezerAvatar, GITHUB_IMAGE_BASES.freezer, 'Freezer')}
           </div>
         </div>
 
@@ -1623,14 +1731,15 @@
       document.getElementById('modalTitle').textContent = `Foto ${charName}`;
       document.getElementById('modalBody').innerHTML = `
         <form onsubmit="saveCloudAvatar(event, '${tabKey}')">
-          <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">
-            Copia un’immagine di <strong>${escapeHtml(charName)}</strong> e premi <strong>Ctrl + V</strong> (oppure tocca e seleziona <em>Incolla</em>) nel riquadro qui sotto.
-          </p>
           <div class="form-group">
-            <div id="cloudPasteBox" class="paste-box" contenteditable="true" onpaste="handleGenericPaste(event, 'cloudAvatarVal', 'cloudPasteBox')">
+            <label class="file-pick-btn">
+              Scegli foto di ${escapeHtml(charName)} da PC / Galleria
+              <input type="file" accept="image/*" style="display:none;" onchange="handleFileSelect(event, 'cloudAvatarVal', 'cloudPasteBox', 300)" />
+            </label>
+            <div id="cloudPasteBox" class="paste-box" contenteditable="true" onpaste="handleGenericPaste(event, 'cloudAvatarVal', 'cloudPasteBox', 300)">
               ${currentAvatar
                 ? `<img src="${escapeHtml(currentAvatar)}" alt="${escapeHtml(charName)}" />`
-                : `<span style="font-size:12px; color:var(--text-muted);">Tocca qui e premi <strong>Ctrl + V</strong> per incollare ${escapeHtml(charName)}</span>`
+                : `<span style="font-size:12px; color:var(--text-muted);">Oppure tocca qui e premi <strong>Ctrl + V</strong> per incollare</span>`
               }
             </div>
             <input type="hidden" id="cloudAvatarVal" value="${escapeHtml(currentAvatar)}" />
@@ -1670,8 +1779,8 @@
                 <div class="muscle-title">${muscle}</div>
                 <span class="char-badge">Goku</span>
               </div>
-              <div class="char-avatar-box" style="border-color: var(--goku-orange); border-style: solid;" onclick="event.stopPropagation(); openMuscleAvatarForm('${muscle}')">
-                ${renderAvatarContent(avatar, GITHUB_IMAGE_FALLBACKS.exercises, 'Goku')}
+              <div class="char-avatar-box" onclick="event.stopPropagation(); openMuscleAvatarForm('${muscle}')">
+                ${renderAvatarContent(avatar, GITHUB_IMAGE_BASES.exercises, 'Goku')}
               </div>
             </div>
             <div class="muscle-card-bottom">
@@ -1691,14 +1800,15 @@
       document.getElementById('modalTitle').textContent = `Foto Goku — ${muscleName}`;
       document.getElementById('modalBody').innerHTML = `
         <form onsubmit="saveMuscleAvatar(event, '${muscleName}')">
-          <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">
-            Copia un’immagine di <strong>Goku</strong> per il distretto <strong>${muscleName}</strong> e premi <strong>Ctrl + V</strong> (oppure tocca e fai <em>Incolla</em>).
-          </p>
           <div class="form-group">
-            <div id="musclePasteBox" class="paste-box" contenteditable="true" onpaste="handleGenericPaste(event, 'muscleAvatarVal', 'musclePasteBox')">
+            <label class="file-pick-btn">
+              Scegli foto Goku da PC / Galleria
+              <input type="file" accept="image/*" style="display:none;" onchange="handleFileSelect(event, 'muscleAvatarVal', 'musclePasteBox', 300)" />
+            </label>
+            <div id="musclePasteBox" class="paste-box" contenteditable="true" onpaste="handleGenericPaste(event, 'muscleAvatarVal', 'musclePasteBox', 300)">
               ${currentAvatar
                 ? `<img src="${escapeHtml(currentAvatar)}" alt="Goku" />`
-                : `<span style="font-size:12px; color:var(--text-muted);">Tocca qui e premi <strong>Ctrl + V</strong> per incollare Goku</span>`
+                : `<span style="font-size:12px; color:var(--text-muted);">Oppure tocca qui e premi <strong>Ctrl + V</strong> per incollare</span>`
               }
             </div>
             <input type="hidden" id="muscleAvatarVal" value="${escapeHtml(currentAvatar)}" />
@@ -2129,8 +2239,12 @@
           </div>
           <div class="form-group">
             <label>Immagine Esercizio</label>
-            <div id="pasteDropBox" class="paste-box" contenteditable="true" onpaste="handleGenericPaste(event, 'exMedia', 'pasteDropBox')">
-              ${currentMedia ? `<img src="${escapeHtml(currentMedia)}" alt="Preview" />` : `<span style="font-size:12px; color:var(--text-muted);">Clicca qui e premi <strong>Ctrl + V</strong> per incollare l'immagine</span>`}
+            <label class="file-pick-btn">
+              Scegli immagine da PC / Galleria
+              <input type="file" accept="image/*" style="display:none;" onchange="handleFileSelect(event, 'exMedia', 'pasteDropBox', 760)" />
+            </label>
+            <div id="pasteDropBox" class="paste-box" contenteditable="true" onpaste="handleGenericPaste(event, 'exMedia', 'pasteDropBox', 760)">
+              ${currentMedia ? `<img src="${escapeHtml(currentMedia)}" alt="Preview" />` : `<span style="font-size:12px; color:var(--text-muted);">Oppure tocca qui e premi <strong>Ctrl + V</strong> per incollare</span>`}
             </div>
             <input type="hidden" id="exMedia" value="${escapeHtml(currentMedia)}" />
             <button type="button" class="chip" style="margin-top:6px;" onclick="clearGenericPaste('exMedia', 'pasteDropBox')">Rimuovi immagine</button>
@@ -2422,8 +2536,12 @@
           </div>
           <div class="form-group">
             <label>Tabella o Grafico dello Studio (Opzionale)</label>
-            <div id="revPasteBox" class="paste-box" contenteditable="true" onpaste="handleGenericPaste(event, 'revMedia', 'revPasteBox')">
-              ${currentMedia ? `<img src="${escapeHtml(currentMedia)}" alt="Grafico" />` : `<span style="font-size:12px; color:var(--text-muted);">Clicca qui e premi <strong>Ctrl + V</strong> per incollare un grafico</span>`}
+            <label class="file-pick-btn">
+              Scegli grafico da PC / Galleria
+              <input type="file" accept="image/*" style="display:none;" onchange="handleFileSelect(event, 'revMedia', 'revPasteBox', 760)" />
+            </label>
+            <div id="revPasteBox" class="paste-box" contenteditable="true" onpaste="handleGenericPaste(event, 'revMedia', 'revPasteBox', 760)">
+              ${currentMedia ? `<img src="${escapeHtml(currentMedia)}" alt="Grafico" />` : `<span style="font-size:12px; color:var(--text-muted);">Oppure tocca qui e premi <strong>Ctrl + V</strong> per incollare</span>`}
             </div>
             <input type="hidden" id="revMedia" value="${escapeHtml(currentMedia)}" />
             <button type="button" class="chip" style="margin-top:6px;" onclick="clearGenericPaste('revMedia', 'revPasteBox')">Rimuovi immagine</button>
@@ -2604,18 +2722,52 @@
       render();
     }
 
-    function handleGenericPaste(e, inputId, boxId) {
+    function compressImageBlob(blob, maxSide, callback) {
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const img = new Image();
+        img.onload = function() {
+          let w = img.width;
+          let h = img.height;
+          if (w > maxSide || h > maxSide) {
+            if (w > h) {
+              h = Math.round((h * maxSide) / w);
+              w = maxSide;
+            } else {
+              w = Math.round((w * maxSide) / h);
+              h = maxSide;
+            }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          callback(canvas.toDataURL('image/jpeg', 0.8));
+        };
+        img.src = evt.target.result;
+      };
+      reader.readAsDataURL(blob);
+    }
+
+    function handleFileSelect(e, inputId, boxId, maxSide = 400) {
+      const file = e.target.files[0];
+      if (!file) return;
+      compressImageBlob(file, maxSide, function(dataUrl) {
+        document.getElementById(inputId).value = dataUrl;
+        document.getElementById(boxId).innerHTML = `<img src="${dataUrl}" alt="Selezionata" />`;
+      });
+    }
+
+    function handleGenericPaste(e, inputId, boxId, maxSide = 400) {
       const items = (e.clipboardData || e.originalEvent.clipboardData).items;
       for (let i = 0; i < items.length; i++) {
         if (items[i].type.indexOf('image') !== -1) {
           const blob = items[i].getAsFile();
-          const reader = new FileReader();
-          reader.onload = function(evt) {
-            const base64 = evt.target.result;
-            document.getElementById(inputId).value = base64;
-            document.getElementById(boxId).innerHTML = `<img src="${base64}" alt="Incollata" />`;
-          };
-          reader.readAsDataURL(blob);
+          compressImageBlob(blob, maxSide, function(dataUrl) {
+            document.getElementById(inputId).value = dataUrl;
+            document.getElementById(boxId).innerHTML = `<img src="${dataUrl}" alt="Incollata" />`;
+          });
           e.preventDefault();
           break;
         }
@@ -2624,7 +2776,7 @@
 
     function clearGenericPaste(inputId, boxId, labelHint = "l'immagine") {
       document.getElementById(inputId).value = '';
-      document.getElementById(boxId).innerHTML = `<span style="font-size:12px; color:var(--text-muted);">Clicca qui e premi <strong>Ctrl + V</strong> per incollare ${escapeHtml(labelHint)}</span>`;
+      document.getElementById(boxId).innerHTML = `<span style="font-size:12px; color:var(--text-muted);">Usa il pulsante giallo sopra o premi <strong>Ctrl + V</strong> per ${escapeHtml(labelHint)}</span>`;
     }
 
     function deleteItem(collection, id) {
@@ -2645,19 +2797,33 @@
       document.getElementById(id).classList.remove('open');
     }
 
-    function openBackupModal() {
-      openModal('backupModal');
-    }
+    async function exportData() {
+      const jsonStr = JSON.stringify(state.data, null, 2);
+      const date = new Date().toISOString().slice(0, 10);
+      const fileName = `manuale-sala-pesi-${date}.json`;
+      const file = new File([jsonStr], fileName, { type: 'application/json' });
 
-    function exportData() {
-      const blob = new Blob([JSON.stringify(state.data, null, 2)], { type: 'application/json' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({
+            files: [file],
+            title: 'Backup Manuale Sala Pesi'
+          });
+          return;
+        } catch (err) {
+          if (err.name === 'AbortError') return;
+        }
+      }
+
+      const blob = new Blob([jsonStr], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      const date = new Date().toISOString().slice(0, 10);
       a.href = url;
-      a.download = `manuale-sala-pesi-${date}.json`;
+      a.download = fileName;
+      document.body.appendChild(a);
       a.click();
-      URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
     }
 
     function importData(event) {
@@ -2682,7 +2848,6 @@
               supplements: imported.supplements || DEFAULT_DATA.supplements
             };
             saveData();
-            closeModal('backupModal');
             render();
             alert('Backup importato con successo!');
           } else {
