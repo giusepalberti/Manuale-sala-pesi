@@ -28,6 +28,8 @@
       --purple-soft: rgba(155, 93, 229, 0.14);
       --kinto-gold: #FFD000;
       --kinto-dark: #1A1100;
+      --goku-orange: #FF6B00;
+      --goku-soft: rgba(255, 107, 0, 0.16);
       --safe-top: env(safe-area-inset-top, 20px);
       --safe-bottom: env(safe-area-inset-bottom, 20px);
     }
@@ -156,7 +158,7 @@
       position: relative;
       background: linear-gradient(180deg, #FFE853 0%, #FFB703 72%, #FB8500 100%);
       border-radius: 36px;
-      padding: 14px 16px 13px;
+      padding: 13px 15px 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -170,7 +172,6 @@
       transition: transform 0.12s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.12s ease;
     }
 
-    /* Gobbe morbide superiori */
     .kinto-cloud::before {
       content: "";
       position: absolute;
@@ -199,7 +200,6 @@
       pointer-events: none;
     }
 
-    /* Codina discreta a destra */
     .kinto-tail {
       position: absolute;
       right: -5px;
@@ -223,7 +223,7 @@
     .chapter-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 11px;
       position: relative;
       z-index: 2;
       min-width: 0;
@@ -231,8 +231,8 @@
 
     /* Sfera del Drago 1-7 stelle */
     .dragon-ball {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       background: radial-gradient(circle at 32% 28%, #FFF3B0 0%, #FF9F1C 38%, #E85D04 82%, #9D0208 100%);
       border: 2px solid #FFF3B0;
@@ -247,8 +247,8 @@
     }
 
     .dragon-ball svg {
-      width: 34px;
-      height: 34px;
+      width: 32px;
+      height: 32px;
       display: block;
     }
 
@@ -260,13 +260,13 @@
       font-size: 9.5px;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.7px;
       color: #7A2200;
       margin-bottom: 1px;
     }
 
     .chapter-title {
-      font-size: 16.5px;
+      font-size: 16px;
       font-weight: 900;
       color: var(--kinto-dark);
       line-height: 1.15;
@@ -275,7 +275,7 @@
     }
 
     .chapter-desc {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 600;
       color: #422600;
       line-height: 1.25;
@@ -294,14 +294,38 @@
       z-index: 2;
     }
 
-    .chapter-count {
-      font-size: 11.5px;
-      font-weight: 900;
-      padding: 3px 9px;
-      border-radius: 20px;
-      background: var(--kinto-dark);
+    /* Riquadro Foto Personaggio nella Nuvola Home */
+    .cloud-char-slot {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(26, 17, 0, 0.85);
+      border: 2px solid #FFF3B0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .cloud-char-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cloud-char-placeholder {
+      font-size: 8.5px;
+      font-weight: 800;
       color: var(--kinto-gold);
-      border: 1px solid rgba(255, 255, 255, 0.35);
+      text-align: center;
+      line-height: 1.1;
+      padding: 2px;
+      text-transform: uppercase;
     }
 
     .chapter-arrow {
@@ -391,7 +415,7 @@
       color: var(--kinto-gold);
     }
 
-    /* 6 Distretti Muscolari con Personaggi & Avatar */
+    /* 6 Distretti Muscolari tutti associati a Goku */
     .muscle-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -407,7 +431,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 124px;
+      min-height: 120px;
       position: relative;
       overflow: hidden;
       transition: transform 0.12s ease;
@@ -424,6 +448,7 @@
       top: 0;
       bottom: 0;
       width: 4px;
+      background: var(--goku-orange);
     }
 
     .muscle-card-top {
@@ -449,11 +474,13 @@
       letter-spacing: 0.5px;
       padding: 2px 7px;
       border-radius: 6px;
+      background: var(--goku-soft);
+      color: var(--goku-orange);
     }
 
     .char-avatar-box {
-      width: 48px;
-      height: 48px;
+      width: 46px;
+      height: 46px;
       border-radius: 12px;
       background: var(--surface-2);
       border: 1.5px dashed var(--border);
@@ -914,18 +941,21 @@
       </svg>
       Esercizi
     </button>
-    <button class="nav-item" data-tab="intensity" onclick="switchTab('intensity')">
+    <button class="nav-item" data-tab="periodization" onclick="switchTab('periodization')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
       </svg>
-      Intensità
+      Periodizz.
     </button>
-    <button class="nav-item" data-tab="vocabulary" onclick="switchTab('vocabulary')">
+    <button class="nav-item" data-tab="glossary" onclick="switchTab('glossary')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
         <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
       </svg>
-      Vocabolario
+      Glossario
     </button>
   </nav>
 
@@ -946,7 +976,7 @@
         <button class="close-btn" onclick="closeModal('backupModal')">✕</button>
       </div>
       <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 16px;">
-        Esporta tutti i tuoi esercizi, gli avatar dei personaggi, le tecniche, gli ormoni, gli integratori, gli approfondimenti e le definizioni in un file <strong>.json</strong> per trasferirli tra PC e iPhone.
+        Esporta tutti i tuoi esercizi, le foto dei personaggi sulle nuvole e nei distretti, le tecniche, le specializzazioni, la periodizzazione, gli ormoni, gli integratori e il glossario in un file <strong>.json</strong>.
       </p>
       <button class="primary-btn" style="width: 100%; justify-content: center; padding: 13px; margin-bottom: 12px;" onclick="exportData()">
         Scarica File di Backup (.json)
@@ -959,62 +989,41 @@
   </div>
 
   <script>
-    const STORAGE_KEY = 'manuale_sala_pesi_db7_v1';
+    const STORAGE_KEY = 'manuale_sala_pesi_db7_v2';
 
     const MUSCLE_GROUPS = [
-      {
-        name: 'Petto',
-        character: 'Goku',
-        color: '#FF6B00',
-        softBg: 'rgba(255, 107, 0, 0.16)'
-      },
-      {
-        name: 'Schiena',
-        character: 'Vegeta',
-        color: '#3A86FF',
-        softBg: 'rgba(58, 134, 255, 0.16)'
-      },
-      {
-        name: 'Bicipiti',
-        character: 'Goten',
-        color: '#FF4D2D',
-        softBg: 'rgba(255, 77, 45, 0.16)'
-      },
-      {
-        name: 'Tricipiti',
-        character: 'Trunks',
-        color: '#9B5DE5',
-        softBg: 'rgba(155, 93, 229, 0.16)'
-      },
-      {
-        name: 'Spalle',
-        character: 'Crillin',
-        color: '#FF9F1C',
-        softBg: 'rgba(255, 159, 28, 0.16)'
-      },
-      {
-        name: 'Gambe',
-        character: 'Gohan',
-        color: '#2EC4B6',
-        softBg: 'rgba(46, 196, 182, 0.16)'
-      }
+      'Pettorali',
+      'Dorsali',
+      'Bicipiti',
+      'Tricipiti',
+      'Gambe',
+      'Core'
     ];
 
     const EQUIPMENTS = ['Tutti', 'Bilanciere', 'Manubri', 'Cavi', 'Macchine', 'Corpo libero'];
 
     const DEFAULT_DATA = {
-      characterAvatars: {
-        'Petto': '',
-        'Schiena': '',
+      cloudAvatars: {
+        exercises: '',
+        intensity: '',
+        specializations: '',
+        periodization: '',
+        hormones: '',
+        supplements: '',
+        glossary: ''
+      },
+      muscleAvatars: {
+        'Pettorali': '',
+        'Dorsali': '',
         'Bicipiti': '',
         'Tricipiti': '',
-        'Spalle': '',
-        'Gambe': ''
+        'Gambe': '',
+        'Core': ''
       },
       exercises: [
         {
           id: 'ex_1',
-          muscle: 'Petto',
+          muscle: 'Pettorali',
           name: 'Panca Piana Bilanciere',
           equipment: 'Bilanciere',
           mediaUrl: '',
@@ -1052,6 +1061,16 @@
           frequency: '2-3 sedute settimanali (es. Focus Quadricipiti + Focus Femorali/Glutei)',
           volume: '14-18 serie allenanti settimanali sui muscoli target; restanti gruppi a volume di mantenimento (6-8 serie/settimana).',
           keyExercises: 'Hack Squat / Pendulum Squat, Leg Press 45°, Romanian Deadlift (RDL), Seated Leg Curl, Leg Extension.'
+        }
+      ],
+      periodization: [
+        {
+          id: 'per_1',
+          title: 'Mesociclo a Blocchi (12 Settimane: Volume → Trasformazione → Intensità)',
+          model: 'Periodizzazione a Blocchi / Lineare Ondulata',
+          structure: 'Settimane 1–4: Accumulo di Volume (RIR 2–3, 10–15 rep, focus densità e tecnica).\nSettimane 5–8: Trasformazione (RIR 1–2, 6–10 rep, progressione dei carichi sui fondamentali).\nSettimane 9–11: Intensificazione (RIR 0–1, 4–6 rep sui multiarticolari + tecniche di intensità sui complementari).\nSettimana 12: Deload (riduzione volume del 40–50% mantenendo i carichi).',
+          progression: 'Doppia progressione sul range di ripetizioni (es. 3×8–10 → aumento carico del 2,5–5% al raggiungimento del tetto con RIR target) oppure protocolli EMOM tecnici.',
+          notes: 'Monitorare fatica articolare, qualità del sonno e calo prestazionale per anticipare o posticipare lo scarico.'
         }
       ],
       hormones: [
@@ -1092,30 +1111,19 @@
           notes: 'Utile in periodi di elevato carico allenante e sudorazione intensa per prevenire carenze subcliniche.'
         }
       ],
-      deepDives: [
+      glossary: [
         {
-          id: 'dd_1',
-          title: 'Segnalazione mTORC1 vs AMPK nell’Ipertrofia',
-          tag: 'Fisiologia & Biochimica',
-          summary: 'mTORC1 è il principale regolatore della sintesi proteica miofibrillare attivato dalla tensione meccanica e dalla leucina, mentre AMPK risponde allo stress energetico (rapporto AMP/ATP).',
-          details: 'Durante l’allenamento contro resistenze, i meccanocettori di membrana attivano la cascata che porta a mTORC1 e alla traduzione ribosomiale. Un eccessivo dispendio energetico acuto attiva AMPK, che può attenuare temporaneamente mTORC1 se il recupero o l’apporto energetico sono insufficienti.',
-          practical: 'Separare l’allenamento aerobico intenso dalle sedute di forza o gestirlo con adeguato apporto glucidico per massimizzare la risposta anabolica.',
-          mediaUrl: ''
-        }
-      ],
-      vocabulary: [
-        {
-          id: 'voc_1',
+          id: 'glo_1',
           term: 'Profilo di Resistenza',
           definition: 'Variazione della coppia resistente esterna lungo l’arco di movimento (ROM) di un esercizio, determinata dal braccio di leva tra il vettore di forza e l’articolazione.'
         },
         {
-          id: 'voc_2',
+          id: 'glo_2',
           term: 'RIR (Reps in Reserve)',
           definition: 'Numero di ripetizioni ripetibili ancora con tecnica corretta prima di raggiungere il cedimento muscolare concentrico.'
         },
         {
-          id: 'voc_3',
+          id: 'glo_3',
           term: 'Sticking Point',
           definition: 'Punto critico dell’alzata (spesso nella fase iniziale-intermedia della concentrica) in cui il rapporto tra forza esprimibile dal muscolo e momento resistente esterno è più sfavorevole.'
         }
@@ -1134,26 +1142,35 @@
     function loadData() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY) ||
-                    localStorage.getItem('manuale_sala_pesi_dark_v4') ||
-                    localStorage.getItem('manuale_sala_pesi_dark_v3');
+                    localStorage.getItem('manuale_sala_pesi_db7_v1') ||
+                    localStorage.getItem('manuale_sala_pesi_dark_v4');
         if (!raw) return JSON.parse(JSON.stringify(DEFAULT_DATA));
         const parsed = JSON.parse(raw);
         return {
-          characterAvatars: {
-            'Petto': parsed.characterAvatars?.['Petto'] || '',
-            'Schiena': parsed.characterAvatars?.['Schiena'] || '',
-            'Bicipiti': parsed.characterAvatars?.['Bicipiti'] || '',
-            'Tricipiti': parsed.characterAvatars?.['Tricipiti'] || '',
-            'Spalle': parsed.characterAvatars?.['Spalle'] || '',
-            'Gambe': parsed.characterAvatars?.['Gambe'] || ''
+          cloudAvatars: {
+            exercises: parsed.cloudAvatars?.exercises || '',
+            intensity: parsed.cloudAvatars?.intensity || '',
+            specializations: parsed.cloudAvatars?.specializations || '',
+            periodization: parsed.cloudAvatars?.periodization || '',
+            hormones: parsed.cloudAvatars?.hormones || '',
+            supplements: parsed.cloudAvatars?.supplements || '',
+            glossary: parsed.cloudAvatars?.glossary || ''
+          },
+          muscleAvatars: {
+            'Pettorali': parsed.muscleAvatars?.['Pettorali'] || '',
+            'Dorsali': parsed.muscleAvatars?.['Dorsali'] || '',
+            'Bicipiti': parsed.muscleAvatars?.['Bicipiti'] || '',
+            'Tricipiti': parsed.muscleAvatars?.['Tricipiti'] || '',
+            'Gambe': parsed.muscleAvatars?.['Gambe'] || '',
+            'Core': parsed.muscleAvatars?.['Core'] || ''
           },
           exercises: parsed.exercises || [],
           intensity: parsed.intensity || [],
           specializations: parsed.specializations || [],
+          periodization: parsed.periodization || JSON.parse(JSON.stringify(DEFAULT_DATA.periodization)),
           hormones: parsed.hormones || JSON.parse(JSON.stringify(DEFAULT_DATA.hormones)),
           supplements: parsed.supplements || JSON.parse(JSON.stringify(DEFAULT_DATA.supplements)),
-          deepDives: parsed.deepDives || JSON.parse(JSON.stringify(DEFAULT_DATA.deepDives)),
-          vocabulary: parsed.vocabulary || []
+          glossary: parsed.glossary || parsed.vocabulary || JSON.parse(JSON.stringify(DEFAULT_DATA.glossary))
         };
       } catch (e) {
         return JSON.parse(JSON.stringify(DEFAULT_DATA));
@@ -1164,7 +1181,6 @@
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
     }
 
-    // Genera l'SVG delle stelle dentro ciascuna Sfera del Drago (1..7)
     function renderDragonBallSvg(stars) {
       const coords = {
         1: [[50, 50]],
@@ -1244,8 +1260,7 @@
           headerTitle.innerHTML = 'SCHEDA <span>ESERCIZIO</span>';
           renderExerciseDetail(container);
         } else if (state.selectedMuscle) {
-          const mObj = MUSCLE_GROUPS.find(m => m.name === state.selectedMuscle);
-          headerTitle.innerHTML = `${state.selectedMuscle.toUpperCase()} <span>(${mObj ? mObj.character.toUpperCase() : ''})</span>`;
+          headerTitle.innerHTML = `${state.selectedMuscle.toUpperCase()} <span>(GOKU)</span>`;
           renderExerciseList(container);
         } else {
           headerTitle.innerHTML = 'LIBRERIA <span>ESERCIZI</span>';
@@ -1257,18 +1272,18 @@
       } else if (state.tab === 'specializations') {
         headerTitle.innerHTML = 'PROTOCOLLI <span>SPECIALIZZ.</span>';
         renderSpecializations(container);
+      } else if (state.tab === 'periodization') {
+        headerTitle.innerHTML = 'PERIODIZZAZIONE <span>CICLI</span>';
+        renderPeriodization(container);
       } else if (state.tab === 'hormones') {
         headerTitle.innerHTML = 'ORMONI <span>ALLENAMENTO</span>';
         renderHormones(container);
       } else if (state.tab === 'supplements') {
         headerTitle.innerHTML = 'GUIDA <span>INTEGRATORI</span>';
         renderSupplements(container);
-      } else if (state.tab === 'deepdives') {
-        headerTitle.innerHTML = 'APPROFONDIMENTI <span>TECNICI</span>';
-        renderDeepDives(container);
-      } else if (state.tab === 'vocabulary') {
-        headerTitle.innerHTML = 'VOCABOLARIO <span>A–Z</span>';
-        renderVocabulary(container);
+      } else if (state.tab === 'glossary') {
+        headerTitle.innerHTML = 'GLOSSARIO <span>A–Z</span>';
+        renderGlossary(container);
       }
     }
 
@@ -1277,120 +1292,167 @@
         {
           stars: 1,
           tab: 'exercises',
-          num: 'Sfera 1 Stella • Cap. 01',
+          charName: 'Goku Sorridente',
+          shortLabel: 'Goku',
+          num: 'Sfera 1 Stella • Goku',
           title: 'Libreria Esercizi',
-          desc: 'Petto, Schiena, Bicipiti, Tricipiti, Spalle, Gambe • 4 step & focus',
-          count: state.data.exercises.length
+          desc: 'Pettorali, Dorsali, Bicipiti, Tricipiti, Gambe, Core • 4 step & focus'
         },
         {
           stars: 2,
           tab: 'intensity',
-          num: 'Sfera 2 Stelle • Cap. 02',
+          charName: 'Gohan',
+          shortLabel: 'Gohan',
+          num: 'Sfera 2 Stelle • Gohan',
           title: 'Tecniche di Intensità',
-          desc: 'Rest-Pause, Drop Set, protocolli e gestione cedimento',
-          count: state.data.intensity.length
+          desc: 'Rest-Pause, Drop Set, protocolli e gestione cedimento'
         },
         {
           stars: 3,
           tab: 'specializations',
-          num: 'Sfera 3 Stelle • Cap. 03',
+          charName: 'Vegeta',
+          shortLabel: 'Vegeta',
+          num: 'Sfera 3 Stelle • Vegeta',
           title: 'Specializzazioni',
-          desc: 'Come e perché priorizzare compartimenti muscolari carenti',
-          count: state.data.specializations.length
+          desc: 'Come e perché priorizzare compartimenti muscolari carenti'
         },
         {
           stars: 4,
-          tab: 'hormones',
-          num: 'Sfera 4 Stelle • Cap. 04',
-          title: 'Ormoni nell’Allenamento',
-          desc: 'Risposta endocrina, meccanismi fisiologici e gestione recupero',
-          count: state.data.hormones.length
+          tab: 'periodization',
+          charName: 'Junior',
+          shortLabel: 'Junior',
+          num: 'Sfera 4 Stelle • Junior',
+          title: 'Periodizzazione',
+          desc: 'Programmazione a blocchi, mesocicli, progressioni e scarichi'
         },
         {
           stars: 5,
-          tab: 'supplements',
-          num: 'Sfera 5 Stelle • Cap. 05',
-          title: 'Integratori',
-          desc: 'Meccanismi d’azione, dosaggi, timing e sinergie di assorbimento',
-          count: state.data.supplements.length
+          tab: 'hormones',
+          charName: 'Broly',
+          shortLabel: 'Broly',
+          num: 'Sfera 5 Stelle • Broly',
+          title: 'Ormoni nell’Allenamento',
+          desc: 'Risposta endocrina, meccanismi fisiologici e gestione recupero'
         },
         {
           stars: 6,
-          tab: 'deepdives',
-          num: 'Sfera 6 Stelle • Cap. 06',
-          title: 'Approfondimenti',
-          desc: 'Schede monografiche su fisiologia, biochimica e biomeccanica',
-          count: state.data.deepDives.length
+          tab: 'supplements',
+          charName: 'Trunks del Futuro',
+          shortLabel: 'Trunks',
+          num: 'Sfera 6 Stelle • Trunks del Futuro',
+          title: 'Integratori',
+          desc: 'Meccanismi d’azione, dosaggi, timing e sinergie di assorbimento'
         },
         {
           stars: 7,
-          tab: 'vocabulary',
-          num: 'Sfera 7 Stelle • Cap. 07',
-          title: 'Vocabolario (A–Z)',
-          desc: 'Glossario tecnico ordinato alfabeticamente dalla A alla Z',
-          count: state.data.vocabulary.length
+          tab: 'glossary',
+          charName: 'Re Kaio',
+          shortLabel: 'Re Kaio',
+          num: 'Sfera 7 Stelle • Re Kaio',
+          title: 'Glossario (A–Z)',
+          desc: 'Terminologia tecnica ordinata alfabeticamente dalla A alla Z'
         }
       ];
 
       container.innerHTML = `
         <div class="home-intro">
-          <p>Sali sulla Nuvola Speedy e scegli una delle 7 Sfere:</p>
+          <p>Tocca una Nuvola Speedy per entrare (o tocca la foto per impostare il personaggio):</p>
         </div>
 
         <div class="chapters-grid">
-          ${chapters.map(ch => `
-            <div class="kinto-cloud" onclick="switchTab('${ch.tab}')">
-              <div class="kinto-tail"></div>
-              <div class="chapter-left">
-                <div class="dragon-ball">
-                  ${renderDragonBallSvg(ch.stars)}
+          ${chapters.map(ch => {
+            const avatar = state.data.cloudAvatars[ch.tab];
+            return `
+              <div class="kinto-cloud" onclick="switchTab('${ch.tab}')">
+                <div class="kinto-tail"></div>
+                <div class="chapter-left">
+                  <div class="dragon-ball">
+                    ${renderDragonBallSvg(ch.stars)}
+                  </div>
+                  <div class="chapter-info">
+                    <div class="chapter-num">${ch.num}</div>
+                    <div class="chapter-title">${ch.title}</div>
+                    <div class="chapter-desc">${ch.desc}</div>
+                  </div>
                 </div>
-                <div class="chapter-info">
-                  <div class="chapter-num">${ch.num}</div>
-                  <div class="chapter-title">${ch.title}</div>
-                  <div class="chapter-desc">${ch.desc}</div>
+                <div class="chapter-right">
+                  <div class="cloud-char-slot" title="Imposta foto ${ch.charName}" onclick="event.stopPropagation(); openCloudAvatarForm('${ch.tab}', '${escapeHtml(ch.charName)}')">
+                    ${avatar
+                      ? `<img src="${escapeHtml(avatar)}" alt="${escapeHtml(ch.charName)}" />`
+                      : `<span class="cloud-char-placeholder">+ Foto<br>${escapeHtml(ch.shortLabel)}</span>`
+                    }
+                  </div>
+                  <span class="chapter-arrow">›</span>
                 </div>
               </div>
-              <div class="chapter-right">
-                <span class="chapter-count">${ch.count}</span>
-                <span class="chapter-arrow">›</span>
-              </div>
-            </div>
-          `).join('')}
+            `;
+          }).join('')}
         </div>
       `;
+    }
+
+    function openCloudAvatarForm(tabKey, charName) {
+      const currentAvatar = state.data.cloudAvatars[tabKey] || '';
+      document.getElementById('modalTitle').textContent = `Foto ${charName}`;
+      document.getElementById('modalBody').innerHTML = `
+        <form onsubmit="saveCloudAvatar(event, '${tabKey}')">
+          <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">
+            Copia un’immagine di <strong>${escapeHtml(charName)}</strong> e premi <strong>Ctrl + V</strong> (oppure tocca e seleziona <em>Incolla</em>) nel riquadro qui sotto.
+          </p>
+          <div class="form-group">
+            <div id="cloudPasteBox" class="paste-box" contenteditable="true" onpaste="handleGenericPaste(event, 'cloudAvatarVal', 'cloudPasteBox')">
+              ${currentAvatar
+                ? `<img src="${escapeHtml(currentAvatar)}" alt="${escapeHtml(charName)}" />`
+                : `<span style="font-size:12px; color:var(--text-muted);">Tocca qui e premi <strong>Ctrl + V</strong> per incollare ${escapeHtml(charName)}</span>`
+              }
+            </div>
+            <input type="hidden" id="cloudAvatarVal" value="${escapeHtml(currentAvatar)}" />
+            <button type="button" class="chip" style="margin-top:8px;" onclick="clearGenericPaste('cloudAvatarVal', 'cloudPasteBox', '${escapeHtml(charName)}')">Rimuovi immagine</button>
+          </div>
+          <button type="submit" class="primary-btn" style="width:100%; justify-content:center; padding:14px;">Salva Foto Personaggio</button>
+        </form>
+      `;
+      openModal('formModal');
+    }
+
+    function saveCloudAvatar(e, tabKey) {
+      e.preventDefault();
+      state.data.cloudAvatars[tabKey] = document.getElementById('cloudAvatarVal').value.trim();
+      saveData();
+      closeModal('formModal');
+      render();
     }
 
     function renderMuscleGrid(container) {
       let html = `
         <div class="section-header">
-          <span class="section-subtitle">Scegli il distretto o imposta l’avatar</span>
+          <span class="section-subtitle">Tutti i distretti associati a Goku</span>
           <button class="primary-btn" onclick="openExerciseForm()">+ Esercizio</button>
         </div>
         <div class="muscle-grid">
       `;
 
-      MUSCLE_GROUPS.forEach(m => {
-        const count = state.data.exercises.filter(e => e.muscle === m.name).length;
-        const avatar = state.data.characterAvatars[m.name];
+      MUSCLE_GROUPS.forEach(muscle => {
+        const count = state.data.exercises.filter(e => e.muscle === muscle).length;
+        const avatar = state.data.muscleAvatars[muscle] || state.data.cloudAvatars.exercises;
         html += `
-          <div class="muscle-card" onclick="selectMuscle('${m.name}')">
-            <div class="muscle-card-bar" style="background: ${m.color};"></div>
+          <div class="muscle-card" onclick="selectMuscle('${muscle}')">
+            <div class="muscle-card-bar"></div>
             <div class="muscle-card-top">
               <div>
-                <div class="muscle-title">${m.name}</div>
-                <span class="char-badge" style="background: ${m.softBg}; color: ${m.color};">${m.character}</span>
+                <div class="muscle-title">${muscle}</div>
+                <span class="char-badge">Goku</span>
               </div>
-              <div class="char-avatar-box" style="border-color: ${avatar ? m.color : 'var(--border)'}; border-style: ${avatar ? 'solid' : 'dashed'};" onclick="event.stopPropagation(); openAvatarForm('${m.name}')">
+              <div class="char-avatar-box" style="border-color: ${avatar ? 'var(--goku-orange)' : 'var(--border)'}; border-style: ${avatar ? 'solid' : 'dashed'};" onclick="event.stopPropagation(); openMuscleAvatarForm('${muscle}')">
                 ${avatar
-                  ? `<img src="${escapeHtml(avatar)}" alt="${m.character}" />`
-                  : `<span class="char-avatar-hint">+ Foto<br>${m.character}</span>`
+                  ? `<img src="${escapeHtml(avatar)}" alt="Goku ${muscle}" />`
+                  : `<span class="char-avatar-hint">+ Foto<br>Goku</span>`
                 }
               </div>
             </div>
             <div class="muscle-card-bottom">
               <div class="muscle-count">${count} ${count === 1 ? 'esercizio' : 'esercizi'}</div>
-              <button type="button" class="avatar-edit-btn" onclick="event.stopPropagation(); openAvatarForm('${m.name}')">Avatar</button>
+              <button type="button" class="avatar-edit-btn" onclick="event.stopPropagation(); openMuscleAvatarForm('${muscle}')">Foto</button>
             </div>
           </div>
         `;
@@ -1400,34 +1462,33 @@
       container.innerHTML = html;
     }
 
-    function openAvatarForm(muscleName) {
-      const mObj = MUSCLE_GROUPS.find(m => m.name === muscleName);
-      const currentAvatar = state.data.characterAvatars[muscleName] || '';
-      document.getElementById('modalTitle').textContent = `Avatar ${mObj.character} (${muscleName})`;
+    function openMuscleAvatarForm(muscleName) {
+      const currentAvatar = state.data.muscleAvatars[muscleName] || '';
+      document.getElementById('modalTitle').textContent = `Foto Goku — ${muscleName}`;
       document.getElementById('modalBody').innerHTML = `
-        <form onsubmit="saveCharacterAvatar(event, '${muscleName}')">
+        <form onsubmit="saveMuscleAvatar(event, '${muscleName}')">
           <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">
-            Copia un’immagine di <strong>${mObj.character}</strong> e premi <strong>Ctrl + V</strong> (oppure tocca e seleziona <em>Incolla</em>) nel riquadro qui sotto.
+            Copia un’immagine di <strong>Goku</strong> per il distretto <strong>${muscleName}</strong> e premi <strong>Ctrl + V</strong> (oppure tocca e fai <em>Incolla</em>).
           </p>
           <div class="form-group">
-            <div id="avatarPasteBox" class="paste-box" contenteditable="true" onpaste="handleGenericPaste(event, 'avatarValue', 'avatarPasteBox')">
+            <div id="musclePasteBox" class="paste-box" contenteditable="true" onpaste="handleGenericPaste(event, 'muscleAvatarVal', 'musclePasteBox')">
               ${currentAvatar
-                ? `<img src="${escapeHtml(currentAvatar)}" alt="${mObj.character}" />`
-                : `<span style="font-size:12px; color:var(--text-muted);">Tocca qui e premi <strong>Ctrl + V</strong> per incollare ${mObj.character}</span>`
+                ? `<img src="${escapeHtml(currentAvatar)}" alt="Goku" />`
+                : `<span style="font-size:12px; color:var(--text-muted);">Tocca qui e premi <strong>Ctrl + V</strong> per incollare Goku</span>`
               }
             </div>
-            <input type="hidden" id="avatarValue" value="${escapeHtml(currentAvatar)}" />
-            <button type="button" class="chip" style="margin-top:8px;" onclick="clearGenericPaste('avatarValue', 'avatarPasteBox', '${mObj.character}')">Rimuovi immagine</button>
+            <input type="hidden" id="muscleAvatarVal" value="${escapeHtml(currentAvatar)}" />
+            <button type="button" class="chip" style="margin-top:8px;" onclick="clearGenericPaste('muscleAvatarVal', 'musclePasteBox', 'Goku')">Rimuovi immagine</button>
           </div>
-          <button type="submit" class="primary-btn" style="width:100%; justify-content:center; padding:14px;">Salva Avatar</button>
+          <button type="submit" class="primary-btn" style="width:100%; justify-content:center; padding:14px;">Salva Foto</button>
         </form>
       `;
       openModal('formModal');
     }
 
-    function saveCharacterAvatar(e, muscleName) {
+    function saveMuscleAvatar(e, muscleName) {
       e.preventDefault();
-      state.data.characterAvatars[muscleName] = document.getElementById('avatarValue').value.trim();
+      state.data.muscleAvatars[muscleName] = document.getElementById('muscleAvatarVal').value.trim();
       saveData();
       closeModal('formModal');
       render();
@@ -1636,6 +1697,46 @@
       container.innerHTML = html;
     }
 
+    function renderPeriodization(container) {
+      let html = `
+        <div class="section-header">
+          <span class="section-subtitle">${state.data.periodization.length} modelli salvati</span>
+          <button class="primary-btn" onclick="openPeriodizationForm()">+ Modello</button>
+        </div>
+        <div class="card-list">
+      `;
+
+      state.data.periodization.forEach(item => {
+        html += `
+          <div class="detail-box" style="margin-bottom:0;">
+            <div class="item-top">
+              <div class="item-title" style="font-size:17px;">${escapeHtml(item.title)}</div>
+              <span class="badge purple">${escapeHtml(item.model || 'Ciclo')}</span>
+            </div>
+            <div class="field-block">
+              <span class="field-label purple">Struttura Blocchi / Mesocicli</span>
+              <div class="field-value">${escapeHtml(item.structure || '—')}</div>
+            </div>
+            <div class="field-block">
+              <span class="field-label">Logica di Progressione (Volume, Intensità, RIR)</span>
+              <div class="field-value">${escapeHtml(item.progression || '—')}</div>
+            </div>
+            <div class="field-block">
+              <span class="field-label green">Gestione Scarico & Note</span>
+              <div class="field-value">${escapeHtml(item.notes || '—')}</div>
+            </div>
+            <div class="detail-actions">
+              <button class="secondary-btn" onclick="openPeriodizationForm('${item.id}')">Modifica</button>
+              <button class="danger-btn" onclick="deleteItem('periodization', '${item.id}')">Elimina</button>
+            </div>
+          </div>
+        `;
+      });
+
+      html += `</div>`;
+      container.innerHTML = html;
+    }
+
     function renderHormones(container) {
       let html = `
         <div class="section-header">
@@ -1724,50 +1825,9 @@
       container.innerHTML = html;
     }
 
-    function renderDeepDives(container) {
-      let html = `
-        <div class="section-header">
-          <span class="section-subtitle">${state.data.deepDives.length} approfondimenti salvati</span>
-          <button class="primary-btn" onclick="openDeepDiveForm()">+ Scheda</button>
-        </div>
-        <div class="card-list">
-      `;
-
-      state.data.deepDives.forEach(item => {
-        html += `
-          <div class="detail-box" style="margin-bottom:0;">
-            <div class="item-top">
-              <div class="item-title" style="font-size:17px;">${escapeHtml(item.title)}</div>
-              <span class="badge purple">${escapeHtml(item.tag || 'Approfondimento')}</span>
-            </div>
-            ${item.mediaUrl ? `<div class="media-frame"><img src="${escapeHtml(item.mediaUrl)}" alt="${escapeHtml(item.title)}" /></div>` : ''}
-            <div class="field-block">
-              <span class="field-label purple">Sintesi Concettuale</span>
-              <div class="field-value">${escapeHtml(item.summary || '—')}</div>
-            </div>
-            <div class="field-block">
-              <span class="field-label">Meccanismi & Dettagli Tecnici</span>
-              <div class="field-value">${escapeHtml(item.details || '—')}</div>
-            </div>
-            <div class="field-block">
-              <span class="field-label green">Ricaduta Pratica sull’Allenamento</span>
-              <div class="field-value">${escapeHtml(item.practical || '—')}</div>
-            </div>
-            <div class="detail-actions">
-              <button class="secondary-btn" onclick="openDeepDiveForm('${item.id}')">Modifica</button>
-              <button class="danger-btn" onclick="deleteItem('deepDives', '${item.id}')">Elimina</button>
-            </div>
-          </div>
-        `;
-      });
-
-      html += `</div>`;
-      container.innerHTML = html;
-    }
-
-    function renderVocabulary(container) {
+    function renderGlossary(container) {
       const q = state.searchQuery.toLowerCase();
-      const sorted = [...state.data.vocabulary]
+      const sorted = [...state.data.glossary]
         .filter(v => !q || v.term.toLowerCase().includes(q) || v.definition.toLowerCase().includes(q))
         .sort((a, b) => a.term.localeCompare(b.term, 'it', { sensitivity: 'base' }));
 
@@ -1781,9 +1841,9 @@
       let html = `
         <div class="section-header">
           <span class="section-subtitle">${sorted.length} termini in ordine alfabetico</span>
-          <button class="primary-btn" onclick="openVocabForm()">+ Termine</button>
+          <button class="primary-btn" onclick="openGlossaryForm()">+ Termine</button>
         </div>
-        <input class="search-box" type="search" placeholder="Cerca termine nel vocabolario..." value="${escapeHtml(state.searchQuery)}" oninput="updateSearch(this.value)" />
+        <input class="search-box" type="search" placeholder="Cerca termine nel glossario..." value="${escapeHtml(state.searchQuery)}" oninput="updateSearch(this.value)" />
       `;
 
       if (sorted.length === 0) {
@@ -1797,8 +1857,8 @@
                 <div class="item-top">
                   <div class="item-title">${escapeHtml(item.term)}</div>
                   <div style="display:flex; gap:6px;">
-                    <button class="chip" onclick="openVocabForm('${item.id}')">Modifica</button>
-                    <button class="chip" style="color:#FF453A;" onclick="deleteItem('vocabulary', '${item.id}')">✕</button>
+                    <button class="chip" onclick="openGlossaryForm('${item.id}')">Modifica</button>
+                    <button class="chip" style="color:#FF453A;" onclick="deleteItem('glossary', '${item.id}')">✕</button>
                   </div>
                 </div>
                 <div style="font-size:14px; color:var(--text-muted); white-space:pre-line;">${escapeHtml(item.definition)}</div>
@@ -1821,9 +1881,9 @@
       document.getElementById('modalBody').innerHTML = `
         <form onsubmit="saveExercise(event, '${id || ''}')">
           <div class="form-group">
-            <label>Gruppo Muscolare (Personaggio)</label>
+            <label>Gruppo Muscolare (Goku)</label>
             <select id="exMuscle" required>
-              ${MUSCLE_GROUPS.map(m => `<option value="${m.name}" ${(ex ? ex.muscle : (defaultMuscle || MUSCLE_GROUPS[0].name)) === m.name ? 'selected' : ''}>${m.name} (${m.character})</option>`).join('')}
+              ${MUSCLE_GROUPS.map(m => `<option value="${m}" ${(ex ? ex.muscle : (defaultMuscle || MUSCLE_GROUPS[0])) === m ? 'selected' : ''}>${m}</option>`).join('')}
             </select>
           </div>
           <div class="form-group">
@@ -1966,7 +2026,7 @@
         <form onsubmit="saveSpec(event, '${id || ''}')">
           <div class="form-group">
             <label>Compartimento Muscolare Carente</label>
-            <input id="specMuscle" type="text" required placeholder="Es. Spalle, Gambe, Schiena..." value="${escapeHtml(item?.muscle || '')}" />
+            <input id="specMuscle" type="text" required placeholder="Es. Pettorali, Gambe, Dorsali..." value="${escapeHtml(item?.muscle || '')}" />
           </div>
           <div class="form-group">
             <label>Perché e Come Specializzare (Razionale)</label>
@@ -2005,6 +2065,58 @@
         if (idx !== -1) state.data.specializations[idx] = payload;
       } else {
         state.data.specializations.push(payload);
+      }
+      saveData();
+      closeModal('formModal');
+      render();
+    }
+
+    function openPeriodizationForm(id = null) {
+      const item = id ? state.data.periodization.find(p => p.id === id) : null;
+      document.getElementById('modalTitle').textContent = item ? 'Modifica Periodizzazione' : 'Nuovo Modello Periodizzazione';
+      document.getElementById('modalBody').innerHTML = `
+        <form onsubmit="savePeriodization(event, '${id || ''}')">
+          <div class="form-group">
+            <label>Titolo Ciclo / Macrociclo</label>
+            <input id="perTitle" type="text" required placeholder="Es. Mesociclo Ipertrofia 12 Settimane..." value="${escapeHtml(item?.title || '')}" />
+          </div>
+          <div class="form-group">
+            <label>Modello (Lineare, Ondulata, Blocchi, Coniugata)</label>
+            <input id="perModel" type="text" placeholder="Es. Periodizzazione a Blocchi" value="${escapeHtml(item?.model || '')}" />
+          </div>
+          <div class="form-group">
+            <label>Struttura Blocchi / Mesocicli</label>
+            <textarea id="perStruct" required placeholder="Suddivisione settimane, fasi di volume, trasformazione, intensità...">${escapeHtml(item?.structure || '')}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Logica di Progressione (Volume, Intensità, RIR)</label>
+            <textarea id="perProg" placeholder="Doppia progressione, EMOM, incremento serie/carico...">${escapeHtml(item?.progression || '')}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Gestione Scarico & Note</label>
+            <textarea id="perNotes" placeholder="Quando e come inserire il deload...">${escapeHtml(item?.notes || '')}</textarea>
+          </div>
+          <button type="submit" class="primary-btn" style="width:100%; justify-content:center; padding:14px;">Salva Periodizzazione</button>
+        </form>
+      `;
+      openModal('formModal');
+    }
+
+    function savePeriodization(e, id) {
+      e.preventDefault();
+      const payload = {
+        id: id || 'per_' + Date.now(),
+        title: document.getElementById('perTitle').value.trim(),
+        model: document.getElementById('perModel').value.trim(),
+        structure: document.getElementById('perStruct').value.trim(),
+        progression: document.getElementById('perProg').value.trim(),
+        notes: document.getElementById('perNotes').value.trim()
+      };
+      if (id) {
+        const idx = state.data.periodization.findIndex(p => p.id === id);
+        if (idx !== -1) state.data.periodization[idx] = payload;
+      } else {
+        state.data.periodization.push(payload);
       }
       saveData();
       closeModal('formModal');
@@ -2120,106 +2232,43 @@
       render();
     }
 
-    function openDeepDiveForm(id = null) {
-      const item = id ? state.data.deepDives.find(d => d.id === id) : null;
-      const currentMedia = item?.mediaUrl || '';
-      document.getElementById('modalTitle').textContent = item ? 'Modifica Approfondimento' : 'Nuovo Approfondimento';
+    function openGlossaryForm(id = null) {
+      const item = id ? state.data.glossary.find(v => v.id === id) : null;
+      document.getElementById('modalTitle').textContent = item ? 'Modifica Termine Glossario' : 'Nuovo Termine Glossario';
       document.getElementById('modalBody').innerHTML = `
-        <form onsubmit="saveDeepDive(event, '${id || ''}')">
-          <div class="form-group">
-            <label>Titolo Approfondimento</label>
-            <input id="ddTitle" type="text" required placeholder="Es. Ipoglicemia reattiva pre-workout..." value="${escapeHtml(item?.title || '')}" />
-          </div>
-          <div class="form-group">
-            <label>Ambito / Tag</label>
-            <input id="ddTag" type="text" placeholder="Es. Fisiologia, Biomeccanica, Biochimica..." value="${escapeHtml(item?.tag || '')}" />
-          </div>
-          <div class="form-group">
-            <label>Schema o Grafico (Opzionale)</label>
-            <div id="ddPasteBox" class="paste-box" contenteditable="true" onpaste="handleGenericPaste(event, 'ddMedia', 'ddPasteBox')">
-              ${currentMedia ? `<img src="${escapeHtml(currentMedia)}" alt="Schema" />` : `<span style="font-size:12px; color:var(--text-muted);">Clicca qui e premi <strong>Ctrl + V</strong> per incollare uno schema</span>`}
-            </div>
-            <input type="hidden" id="ddMedia" value="${escapeHtml(currentMedia)}" />
-            <button type="button" class="chip" style="margin-top:6px;" onclick="clearGenericPaste('ddMedia', 'ddPasteBox')">Rimuovi immagine</button>
-          </div>
-          <div class="form-group">
-            <label>Sintesi Concettuale</label>
-            <textarea id="ddSum" required placeholder="Il punto chiave spiegato in breve...">${escapeHtml(item?.summary || '')}</textarea>
-          </div>
-          <div class="form-group">
-            <label>Meccanismi & Dettagli Tecnici</label>
-            <textarea id="ddDet" placeholder="Spiegazione approfondita per il ripasso...">${escapeHtml(item?.details || '')}</textarea>
-          </div>
-          <div class="form-group">
-            <label>Ricaduta Pratica sull’Allenamento</label>
-            <textarea id="ddPrac" placeholder="Come applicarlo nella programmazione...">${escapeHtml(item?.practical || '')}</textarea>
-          </div>
-          <button type="submit" class="primary-btn" style="width:100%; justify-content:center; padding:14px;">Salva Approfondimento</button>
-        </form>
-      `;
-      openModal('formModal');
-    }
-
-    function saveDeepDive(e, id) {
-      e.preventDefault();
-      const payload = {
-        id: id || 'dd_' + Date.now(),
-        title: document.getElementById('ddTitle').value.trim(),
-        tag: document.getElementById('ddTag').value.trim(),
-        mediaUrl: document.getElementById('ddMedia').value.trim(),
-        summary: document.getElementById('ddSum').value.trim(),
-        details: document.getElementById('ddDet').value.trim(),
-        practical: document.getElementById('ddPrac').value.trim()
-      };
-      if (id) {
-        const idx = state.data.deepDives.findIndex(d => d.id === id);
-        if (idx !== -1) state.data.deepDives[idx] = payload;
-      } else {
-        state.data.deepDives.push(payload);
-      }
-      saveData();
-      closeModal('formModal');
-      render();
-    }
-
-    function openVocabForm(id = null) {
-      const item = id ? state.data.vocabulary.find(v => v.id === id) : null;
-      document.getElementById('modalTitle').textContent = item ? 'Modifica Termine' : 'Nuovo Termine Vocabolario';
-      document.getElementById('modalBody').innerHTML = `
-        <form onsubmit="saveVocab(event, '${id || ''}')">
+        <form onsubmit="saveGlossary(event, '${id || ''}')">
           <div class="form-group">
             <label>Termine / Concetto (verrà ordinato dalla A alla Z)</label>
-            <input id="vocTerm" type="text" required placeholder="Es. Braccio di leva, mTOR, Tensione meccanica..." value="${escapeHtml(item?.term || '')}" />
+            <input id="gloTerm" type="text" required placeholder="Es. Braccio di leva, mTOR, Tensione meccanica..." value="${escapeHtml(item?.term || '')}" />
           </div>
           <div class="form-group">
             <label>Definizione</label>
-            <textarea id="vocDef" required placeholder="Scrivi la definizione chiara e precisa...">${escapeHtml(item?.definition || '')}</textarea>
+            <textarea id="gloDef" required placeholder="Scrivi la definizione chiara e precisa...">${escapeHtml(item?.definition || '')}</textarea>
           </div>
-          <button type="submit" class="primary-btn" style="width:100%; justify-content:center; padding:14px;">Salva nel Vocabolario</button>
+          <button type="submit" class="primary-btn" style="width:100%; justify-content:center; padding:14px;">Salva nel Glossario</button>
         </form>
       `;
       openModal('formModal');
     }
 
-    function saveVocab(e, id) {
+    function saveGlossary(e, id) {
       e.preventDefault();
       const payload = {
-        id: id || 'voc_' + Date.now(),
-        term: document.getElementById('vocTerm').value.trim(),
-        definition: document.getElementById('vocDef').value.trim()
+        id: id || 'glo_' + Date.now(),
+        term: document.getElementById('gloTerm').value.trim(),
+        definition: document.getElementById('gloDef').value.trim()
       };
       if (id) {
-        const idx = state.data.vocabulary.findIndex(v => v.id === id);
-        if (idx !== -1) state.data.vocabulary[idx] = payload;
+        const idx = state.data.glossary.findIndex(v => v.id === id);
+        if (idx !== -1) state.data.glossary[idx] = payload;
       } else {
-        state.data.vocabulary.push(payload);
+        state.data.glossary.push(payload);
       }
       saveData();
       closeModal('formModal');
       render();
     }
 
-    /* Gestione generica Incolla Immagine (Ctrl + V / Tap) */
     function handleGenericPaste(e, inputId, boxId) {
       const items = (e.clipboardData || e.originalEvent.clipboardData).items;
       for (let i = 0; i < items.length; i++) {
@@ -2283,16 +2332,17 @@
       reader.onload = function(e) {
         try {
           const imported = JSON.parse(e.target.result);
-          if (imported.exercises && imported.vocabulary) {
+          if (imported.exercises) {
             state.data = {
-              characterAvatars: imported.characterAvatars || DEFAULT_DATA.characterAvatars,
+              cloudAvatars: imported.cloudAvatars || DEFAULT_DATA.cloudAvatars,
+              muscleAvatars: imported.muscleAvatars || DEFAULT_DATA.muscleAvatars,
               exercises: imported.exercises || [],
               intensity: imported.intensity || [],
               specializations: imported.specializations || [],
+              periodization: imported.periodization || DEFAULT_DATA.periodization,
               hormones: imported.hormones || DEFAULT_DATA.hormones,
               supplements: imported.supplements || DEFAULT_DATA.supplements,
-              deepDives: imported.deepDives || DEFAULT_DATA.deepDives,
-              vocabulary: imported.vocabulary || []
+              glossary: imported.glossary || imported.vocabulary || []
             };
             saveData();
             closeModal('backupModal');
