@@ -24,6 +24,10 @@
       --green-soft: rgba(46, 196, 182, 0.14);
       --blue: #3A86FF;
       --blue-soft: rgba(58, 134, 255, 0.14);
+      --purple: #9B5DE5;
+      --purple-soft: rgba(155, 93, 229, 0.14);
+      --kinto-gold: #FFD000;
+      --kinto-dark: #1A1100;
       --safe-top: env(safe-area-inset-top, 20px);
       --safe-bottom: env(safe-area-inset-bottom, 20px);
     }
@@ -52,7 +56,7 @@
       left: 0;
       right: 0;
       z-index: 50;
-      background: rgba(10, 10, 12, 0.9);
+      background: rgba(10, 10, 12, 0.92);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
@@ -90,7 +94,7 @@
     }
 
     h1 {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
       letter-spacing: -0.3px;
       white-space: nowrap;
@@ -99,7 +103,7 @@
     }
 
     h1 span {
-      color: var(--accent);
+      color: var(--kinto-gold);
     }
 
     .backup-btn {
@@ -124,124 +128,189 @@
     main {
       max-width: 680px;
       margin: 0 auto;
-      padding: 16px;
+      padding: 14px 16px;
     }
 
     .home-intro {
-      margin-bottom: 16px;
+      margin-bottom: 18px;
+      text-align: center;
     }
 
     .home-intro p {
       font-size: 13px;
-      color: var(--text-muted);
+      color: var(--kinto-gold);
+      font-weight: 700;
+      letter-spacing: 0.2px;
     }
 
+    /* Nuvola Speedy Compatta + 7 Sfere del Drago */
     .chapters-grid {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 20px;
+      padding-top: 10px;
+      padding-bottom: 12px;
     }
 
-    .chapter-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 20px 18px;
+    .kinto-cloud {
+      position: relative;
+      background: linear-gradient(180deg, #FFE853 0%, #FFB703 72%, #FB8500 100%);
+      border-radius: 36px;
+      padding: 14px 16px 13px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
+      gap: 10px;
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.12s, border-color 0.15s;
+      box-shadow:
+        0 6px 18px rgba(255, 183, 3, 0.25),
+        inset 0 3px 8px rgba(255, 255, 255, 0.72),
+        inset 0 -3px 8px rgba(217, 107, 0, 0.42);
+      border: 2px solid #FFF07C;
+      transition: transform 0.12s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.12s ease;
     }
 
-    .chapter-card:active {
-      transform: scale(0.985);
-      background: var(--surface-2);
-    }
-
-    .chapter-card::before {
+    /* Gobbe morbide superiori */
+    .kinto-cloud::before {
       content: "";
       position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 5px;
+      top: -12px;
+      left: 22px;
+      width: 50px;
+      height: 22px;
+      background: linear-gradient(180deg, #FFF07C 0%, #FFE442 100%);
+      border-radius: 40px 40px 0 0;
+      border-top: 2px solid #FFF6A8;
+      border-left: 2px solid #FFF6A8;
+      pointer-events: none;
     }
 
-    .chapter-card.c-red::before { background: var(--accent); }
-    .chapter-card.c-amber::before { background: var(--amber); }
-    .chapter-card.c-green::before { background: var(--green); }
-    .chapter-card.c-blue::before { background: var(--blue); }
+    .kinto-cloud::after {
+      content: "";
+      position: absolute;
+      top: -16px;
+      left: 64px;
+      width: 64px;
+      height: 28px;
+      background: linear-gradient(180deg, #FFF38A 0%, #FFE033 100%);
+      border-radius: 40px 40px 0 0;
+      border-top: 2px solid #FFF8B8;
+      border-right: 2px solid #FFF6A8;
+      pointer-events: none;
+    }
+
+    /* Codina discreta a destra */
+    .kinto-tail {
+      position: absolute;
+      right: -5px;
+      bottom: 9px;
+      width: 16px;
+      height: 10px;
+      background: #FFB703;
+      border-radius: 16px;
+      box-shadow: 7px -4px 0 -1px #FFD000;
+      pointer-events: none;
+      opacity: 0.92;
+    }
+
+    .kinto-cloud:active {
+      transform: scale(0.965);
+      box-shadow:
+        0 3px 10px rgba(255, 183, 3, 0.35),
+        inset 0 2px 6px rgba(255, 255, 255, 0.5);
+    }
 
     .chapter-left {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
+      position: relative;
+      z-index: 2;
+      min-width: 0;
     }
 
-    .chapter-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
+    /* Sfera del Drago 1-7 stelle */
+    .dragon-ball {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 32% 28%, #FFF3B0 0%, #FF9F1C 38%, #E85D04 82%, #9D0208 100%);
+      border: 2px solid #FFF3B0;
+      box-shadow:
+        0 3px 8px rgba(130, 30, 0, 0.45),
+        inset 0 2px 5px rgba(255, 255, 255, 0.75);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      position: relative;
     }
 
-    .c-red .chapter-icon { background: var(--accent-soft); color: var(--accent); }
-    .c-amber .chapter-icon { background: var(--amber-soft); color: var(--amber); }
-    .c-green .chapter-icon { background: var(--green-soft); color: var(--green); }
-    .c-blue .chapter-icon { background: var(--blue-soft); color: var(--blue); }
+    .dragon-ball svg {
+      width: 34px;
+      height: 34px;
+      display: block;
+    }
+
+    .chapter-info {
+      min-width: 0;
+    }
 
     .chapter-num {
-      font-size: 11px;
-      font-weight: 800;
+      font-size: 9.5px;
+      font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 0.8px;
-      color: var(--text-muted);
-      margin-bottom: 2px;
+      color: #7A2200;
+      margin-bottom: 1px;
     }
 
     .chapter-title {
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--text);
-      margin-bottom: 3px;
+      font-size: 16.5px;
+      font-weight: 900;
+      color: var(--kinto-dark);
+      line-height: 1.15;
+      margin-bottom: 2px;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
     }
 
     .chapter-desc {
-      font-size: 13px;
-      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      color: #422600;
+      line-height: 1.25;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .chapter-right {
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
+      align-items: center;
       gap: 6px;
       flex-shrink: 0;
+      position: relative;
+      z-index: 2;
     }
 
     .chapter-count {
-      font-size: 12px;
-      font-weight: 800;
-      padding: 4px 9px;
-      border-radius: 8px;
-      background: var(--surface-2);
-      color: var(--text);
-      border: 1px solid var(--border);
+      font-size: 11.5px;
+      font-weight: 900;
+      padding: 3px 9px;
+      border-radius: 20px;
+      background: var(--kinto-dark);
+      color: var(--kinto-gold);
+      border: 1px solid rgba(255, 255, 255, 0.35);
     }
 
     .chapter-arrow {
-      font-size: 18px;
-      color: var(--text-muted);
-      font-weight: 700;
+      font-size: 19px;
+      color: #5C1D00;
+      font-weight: 900;
     }
 
+    /* Section Header & Controls */
     .section-header {
       display: flex;
       justify-content: space-between;
@@ -288,7 +357,7 @@
     }
 
     .search-box:focus {
-      border-color: var(--accent);
+      border-color: var(--kinto-gold);
     }
 
     .filter-row {
@@ -317,11 +386,12 @@
     }
 
     .chip.active {
-      background: var(--accent-soft);
-      border-color: var(--accent);
-      color: var(--accent);
+      background: var(--amber-soft);
+      border-color: var(--kinto-gold);
+      color: var(--kinto-gold);
     }
 
+    /* 6 Distretti Muscolari con Personaggi & Avatar */
     .muscle-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -332,40 +402,109 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 16px 14px;
+      padding: 13px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 92px;
+      min-height: 124px;
       position: relative;
       overflow: hidden;
+      transition: transform 0.12s ease;
     }
 
-    .muscle-card::before {
-      content: "";
+    .muscle-card:active {
+      background: var(--surface-2);
+      transform: scale(0.98);
+    }
+
+    .muscle-card-bar {
       position: absolute;
       left: 0;
       top: 0;
       bottom: 0;
       width: 4px;
-      background: var(--accent);
     }
 
-    .muscle-card:active {
-      background: var(--surface-2);
+    .muscle-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
     }
 
     .muscle-title {
-      font-size: 16px;
-      font-weight: 700;
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 1.2;
       margin-bottom: 4px;
+    }
+
+    .char-badge {
+      display: inline-block;
+      font-size: 10.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 2px 7px;
+      border-radius: 6px;
+    }
+
+    .char-avatar-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--surface-2);
+      border: 1.5px dashed var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .char-avatar-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .char-avatar-hint {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.1;
+      padding: 2px;
+    }
+
+    .muscle-card-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      padding-top: 6px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .muscle-count {
       font-size: 12px;
       color: var(--text-muted);
       font-weight: 600;
+    }
+
+    .avatar-edit-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--kinto-gold);
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 3px 7px;
+      border-radius: 7px;
+      cursor: pointer;
     }
 
     .card-list {
@@ -412,15 +551,10 @@
       white-space: nowrap;
     }
 
-    .badge.amber {
-      background: var(--amber-soft);
-      color: var(--amber);
-    }
-
-    .badge.green {
-      background: var(--green-soft);
-      color: var(--green);
-    }
+    .badge.amber { background: var(--amber-soft); color: var(--amber); }
+    .badge.green { background: var(--green-soft); color: var(--green); }
+    .badge.blue { background: var(--blue-soft); color: var(--blue); }
+    .badge.purple { background: var(--purple-soft); color: var(--purple); }
 
     .item-meta {
       font-size: 13px;
@@ -450,7 +584,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 170px;
+      min-height: 150px;
     }
 
     .media-frame img {
@@ -469,8 +603,8 @@
     }
 
     .field-block {
-      margin-bottom: 14px;
-      padding-bottom: 12px;
+      margin-bottom: 13px;
+      padding-bottom: 11px;
       border-bottom: 1px solid var(--border);
     }
 
@@ -485,13 +619,15 @@
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.7px;
-      color: var(--accent);
-      margin-bottom: 6px;
+      color: var(--kinto-gold);
+      margin-bottom: 5px;
       display: block;
     }
 
     .field-label.amber { color: var(--amber); }
     .field-label.green { color: var(--green); }
+    .field-label.blue { color: var(--blue); }
+    .field-label.purple { color: var(--purple); }
 
     .field-value {
       font-size: 14px;
@@ -519,10 +655,10 @@
       width: 22px;
       height: 22px;
       border-radius: 50%;
-      background: var(--accent);
-      color: #fff;
+      background: var(--kinto-gold);
+      color: var(--kinto-dark);
       font-size: 12px;
-      font-weight: 800;
+      font-weight: 900;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -571,14 +707,15 @@
     .alpha-letter {
       font-size: 14px;
       font-weight: 900;
-      color: var(--blue);
-      background: var(--blue-soft);
+      color: var(--kinto-dark);
+      background: var(--kinto-gold);
       display: inline-block;
       padding: 2px 10px;
       border-radius: 8px;
       margin-bottom: 8px;
     }
 
+    /* Bottom Navigation Bar (4 accessi rapidi per uso comodo su iPhone) */
     nav {
       position: fixed;
       bottom: 0;
@@ -591,7 +728,7 @@
       border-top: 1px solid var(--border);
       padding: 8px 4px calc(var(--safe-bottom) + 6px);
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(4, 1fr);
     }
 
     .nav-item {
@@ -602,14 +739,14 @@
       flex-direction: column;
       align-items: center;
       gap: 4px;
-      font-size: 10px;
+      font-size: 10.5px;
       font-weight: 600;
       cursor: pointer;
       padding: 4px 0;
     }
 
     .nav-item.active {
-      color: var(--accent);
+      color: var(--kinto-gold);
     }
 
     .nav-item svg {
@@ -620,7 +757,7 @@
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.82);
+      background: rgba(0, 0, 0, 0.84);
       z-index: 100;
       display: none;
       align-items: flex-end;
@@ -698,7 +835,7 @@
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
-      border-color: var(--accent);
+      border-color: var(--kinto-gold);
     }
 
     .form-group textarea {
@@ -708,7 +845,7 @@
 
     .paste-box {
       width: 100%;
-      min-height: 90px;
+      min-height: 96px;
       background: var(--bg);
       border: 2px dashed var(--border);
       border-radius: 12px;
@@ -724,11 +861,11 @@
     }
 
     .paste-box:focus {
-      border-color: var(--accent);
+      border-color: var(--kinto-gold);
     }
 
     .paste-box img {
-      max-height: 90px;
+      max-height: 110px;
       object-fit: contain;
       border-radius: 8px;
     }
@@ -783,14 +920,6 @@
       </svg>
       Intensità
     </button>
-    <button class="nav-item" data-tab="specializations" onclick="switchTab('specializations')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="10"/>
-        <circle cx="12" cy="12" r="6"/>
-        <circle cx="12" cy="12" r="2"/>
-      </svg>
-      Specializz.
-    </button>
     <button class="nav-item" data-tab="vocabulary" onclick="switchTab('vocabulary')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
@@ -817,7 +946,7 @@
         <button class="close-btn" onclick="closeModal('backupModal')">✕</button>
       </div>
       <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 16px;">
-        Esporta tutti i tuoi esercizi, tecniche, specializzazioni e definizioni in un file di sicurezza per trasferirli dal PC all'iPhone (o viceversa).
+        Esporta tutti i tuoi esercizi, gli avatar dei personaggi, le tecniche, gli ormoni, gli integratori, gli approfondimenti e le definizioni in un file <strong>.json</strong> per trasferirli tra PC e iPhone.
       </p>
       <button class="primary-btn" style="width: 100%; justify-content: center; padding: 13px; margin-bottom: 12px;" onclick="exportData()">
         Scarica File di Backup (.json)
@@ -830,26 +959,62 @@
   </div>
 
   <script>
-    const STORAGE_KEY = 'manuale_sala_pesi_dark_v4';
+    const STORAGE_KEY = 'manuale_sala_pesi_db7_v1';
 
     const MUSCLE_GROUPS = [
-      'Pettorali',
-      'Dorsali',
-      'Spalle',
-      'Quadricipiti',
-      'Femorali e Glutei',
-      'Bicipiti',
-      'Tricipiti',
-      'Polpacci e Addome'
+      {
+        name: 'Petto',
+        character: 'Goku',
+        color: '#FF6B00',
+        softBg: 'rgba(255, 107, 0, 0.16)'
+      },
+      {
+        name: 'Schiena',
+        character: 'Vegeta',
+        color: '#3A86FF',
+        softBg: 'rgba(58, 134, 255, 0.16)'
+      },
+      {
+        name: 'Bicipiti',
+        character: 'Goten',
+        color: '#FF4D2D',
+        softBg: 'rgba(255, 77, 45, 0.16)'
+      },
+      {
+        name: 'Tricipiti',
+        character: 'Trunks',
+        color: '#9B5DE5',
+        softBg: 'rgba(155, 93, 229, 0.16)'
+      },
+      {
+        name: 'Spalle',
+        character: 'Crillin',
+        color: '#FF9F1C',
+        softBg: 'rgba(255, 159, 28, 0.16)'
+      },
+      {
+        name: 'Gambe',
+        character: 'Gohan',
+        color: '#2EC4B6',
+        softBg: 'rgba(46, 196, 182, 0.16)'
+      }
     ];
 
     const EQUIPMENTS = ['Tutti', 'Bilanciere', 'Manubri', 'Cavi', 'Macchine', 'Corpo libero'];
 
     const DEFAULT_DATA = {
+      characterAvatars: {
+        'Petto': '',
+        'Schiena': '',
+        'Bicipiti': '',
+        'Tricipiti': '',
+        'Spalle': '',
+        'Gambe': ''
+      },
       exercises: [
         {
           id: 'ex_1',
-          muscle: 'Pettorali',
+          muscle: 'Petto',
           name: 'Panca Piana Bilanciere',
           equipment: 'Bilanciere',
           mediaUrl: '',
@@ -889,6 +1054,55 @@
           keyExercises: 'Hack Squat / Pendulum Squat, Leg Press 45°, Romanian Deadlift (RDL), Seated Leg Curl, Leg Extension.'
         }
       ],
+      hormones: [
+        {
+          id: 'hor_1',
+          name: 'Cortisolo',
+          origin: 'Corteccia surrenale (zona fascicolata) — Ormone steroideo catabolico/glucocorticoide',
+          response: 'Aumenta proporzionalmente a volume, intensità, densità della seduta e deplezione delle scorte di glicogeno (soprattutto oltre i 60-75 minuti di allenamento intenso o a digiuno).',
+          effects: 'Promuove gluconeogenesi, lipolisi e mobilizzazione degli aminoacidi (proteolisi). Un picco acuto post-allenamento è fisiologico per il rimodellamento tissutale; livelli cronicamente elevati inibiscono la sintesi proteica e il recupero.',
+          practical: 'Evitare sedute eccessivamente lunghe e non recuperate, calibrare il volume settimanale (MRV) e valutare carboidrati peri-workout nelle sessioni molto voluminose.'
+        },
+        {
+          id: 'hor_2',
+          name: 'Testosterone & Asse GH / IGF-1',
+          origin: 'Cellule di Leydig (Testosterone) / Ipofisi anteriore e Fegato (GH e IGF-1)',
+          response: 'Picchi transitori acuti in risposta a esercizi multiarticolari con grandi masse muscolari, carichi moderato-alti e recuperi incompleti (per il GH legato all’accumulo di lattato/ioni H+).',
+          effects: 'Supportano l’anabolismo proteico, la riparazione delle miofibrille, la proliferazione delle cellule satellite (IGF-1 locale/MGF) e il metabolismo lipidico (GH).',
+          practical: 'I picchi ormonali acuti post-workout non sono il motore primario dell’ipertrofia rispetto alla tensione meccanica locale, ma riflettono uno stato endocrino-metabolico sano e ben recuperato.'
+        }
+      ],
+      supplements: [
+        {
+          id: 'sup_1',
+          name: 'Creatina Monoidrato',
+          category: 'Ergogenico / Performance anaerobica',
+          mechanism: 'Aumenta le riserve intramuscolari di fosfocreatina (PCr), accelerando la risintesi di ATP durante sforzi ad alta intensità e breve durata (sistema anaerobico alattacido).',
+          dosage: '3–5 g al giorno tutti i giorni (anche nei giorni di riposo, per saturazione cronica). Assunzione preferibile vicino a un pasto o post-workout.',
+          interactions: 'Nessun antagonismo critico; l’assunzione insieme a carboidrati/proteine può favorirne leggermente la captazione muscolare mediata dall’insulina.',
+          notes: 'Uno degli integratori con maggiore evidenza scientifica per forza, potenza, volume di lavoro sostenibile e idratazione intracellulare.'
+        },
+        {
+          id: 'sup_2',
+          name: 'ZMB6 & Complesso Calcio/Magnesio',
+          category: 'Micronutrienti / Recupero',
+          mechanism: 'Zinco e Magnesio agiscono come cofattori enzimatici nella sintesi proteica, nella trasmissione neuromuscolare, nel metabolismo energetico e nella qualità del sonno.',
+          dosage: 'Assunzione serale prima di dormire.',
+          interactions: 'Calcio e Zinco competono per gli stessi trasportatori di assorbimento intestinale: alternare ZMB6 e complesso Calcio/Magnesio a sere alterne per evitare interferenze.',
+          notes: 'Utile in periodi di elevato carico allenante e sudorazione intensa per prevenire carenze subcliniche.'
+        }
+      ],
+      deepDives: [
+        {
+          id: 'dd_1',
+          title: 'Segnalazione mTORC1 vs AMPK nell’Ipertrofia',
+          tag: 'Fisiologia & Biochimica',
+          summary: 'mTORC1 è il principale regolatore della sintesi proteica miofibrillare attivato dalla tensione meccanica e dalla leucina, mentre AMPK risponde allo stress energetico (rapporto AMP/ATP).',
+          details: 'Durante l’allenamento contro resistenze, i meccanocettori di membrana attivano la cascata che porta a mTORC1 e alla traduzione ribosomiale. Un eccessivo dispendio energetico acuto attiva AMPK, che può attenuare temporaneamente mTORC1 se il recupero o l’apporto energetico sono insufficienti.',
+          practical: 'Separare l’allenamento aerobico intenso dalle sedute di forza o gestirlo con adeguato apporto glucidico per massimizzare la risposta anabolica.',
+          mediaUrl: ''
+        }
+      ],
       vocabulary: [
         {
           id: 'voc_1',
@@ -919,13 +1133,26 @@
 
     function loadData() {
       try {
-        const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('manuale_sala_pesi_dark_v3') || localStorage.getItem('manuale_sala_pesi_dark_v2') || localStorage.getItem('manuale_sala_pesi_dark_v1');
+        const raw = localStorage.getItem(STORAGE_KEY) ||
+                    localStorage.getItem('manuale_sala_pesi_dark_v4') ||
+                    localStorage.getItem('manuale_sala_pesi_dark_v3');
         if (!raw) return JSON.parse(JSON.stringify(DEFAULT_DATA));
         const parsed = JSON.parse(raw);
         return {
+          characterAvatars: {
+            'Petto': parsed.characterAvatars?.['Petto'] || '',
+            'Schiena': parsed.characterAvatars?.['Schiena'] || '',
+            'Bicipiti': parsed.characterAvatars?.['Bicipiti'] || '',
+            'Tricipiti': parsed.characterAvatars?.['Tricipiti'] || '',
+            'Spalle': parsed.characterAvatars?.['Spalle'] || '',
+            'Gambe': parsed.characterAvatars?.['Gambe'] || ''
+          },
           exercises: parsed.exercises || [],
           intensity: parsed.intensity || [],
           specializations: parsed.specializations || [],
+          hormones: parsed.hormones || JSON.parse(JSON.stringify(DEFAULT_DATA.hormones)),
+          supplements: parsed.supplements || JSON.parse(JSON.stringify(DEFAULT_DATA.supplements)),
+          deepDives: parsed.deepDives || JSON.parse(JSON.stringify(DEFAULT_DATA.deepDives)),
           vocabulary: parsed.vocabulary || []
         };
       } catch (e) {
@@ -935,6 +1162,33 @@
 
     function saveData() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
+    }
+
+    // Genera l'SVG delle stelle dentro ciascuna Sfera del Drago (1..7)
+    function renderDragonBallSvg(stars) {
+      const coords = {
+        1: [[50, 50]],
+        2: [[36, 50], [64, 50]],
+        3: [[50, 32], [35, 62], [65, 62]],
+        4: [[36, 36], [64, 36], [36, 64], [64, 64]],
+        5: [[50, 28], [31, 44], [69, 44], [38, 68], [62, 68]],
+        6: [[50, 26], [31, 40], [69, 40], [31, 62], [69, 62], [50, 74]],
+        7: [[50, 26], [31, 40], [69, 40], [50, 50], [31, 62], [69, 62], [50, 74]]
+      };
+      const pts = coords[stars] || coords[1];
+      const r = stars >= 5 ? 7.2 : 8.5;
+
+      const starShapes = pts.map(([cx, cy]) => {
+        const starPoints = [];
+        for (let i = 0; i < 10; i++) {
+          const angle = (Math.PI / 5) * i - Math.PI / 2;
+          const rad = i % 2 === 0 ? r : r * 0.42;
+          starPoints.push(`${(cx + rad * Math.cos(angle)).toFixed(1)},${(cy + rad * Math.sin(angle)).toFixed(1)}`);
+        }
+        return `<polygon points="${starPoints.join(' ')}" fill="#C1121F" />`;
+      }).join('');
+
+      return `<svg viewBox="0 0 100 100" aria-hidden="true">${starShapes}</svg>`;
     }
 
     function switchTab(tab) {
@@ -990,7 +1244,8 @@
           headerTitle.innerHTML = 'SCHEDA <span>ESERCIZIO</span>';
           renderExerciseDetail(container);
         } else if (state.selectedMuscle) {
-          headerTitle.innerHTML = `${state.selectedMuscle.toUpperCase()}`;
+          const mObj = MUSCLE_GROUPS.find(m => m.name === state.selectedMuscle);
+          headerTitle.innerHTML = `${state.selectedMuscle.toUpperCase()} <span>(${mObj ? mObj.character.toUpperCase() : ''})</span>`;
           renderExerciseList(container);
         } else {
           headerTitle.innerHTML = 'LIBRERIA <span>ESERCIZI</span>';
@@ -1002,6 +1257,15 @@
       } else if (state.tab === 'specializations') {
         headerTitle.innerHTML = 'PROTOCOLLI <span>SPECIALIZZ.</span>';
         renderSpecializations(container);
+      } else if (state.tab === 'hormones') {
+        headerTitle.innerHTML = 'ORMONI <span>ALLENAMENTO</span>';
+        renderHormones(container);
+      } else if (state.tab === 'supplements') {
+        headerTitle.innerHTML = 'GUIDA <span>INTEGRATORI</span>';
+        renderSupplements(container);
+      } else if (state.tab === 'deepdives') {
+        headerTitle.innerHTML = 'APPROFONDIMENTI <span>TECNICI</span>';
+        renderDeepDives(container);
       } else if (state.tab === 'vocabulary') {
         headerTitle.innerHTML = 'VOCABOLARIO <span>A–Z</span>';
         renderVocabulary(container);
@@ -1009,90 +1273,90 @@
     }
 
     function renderHome(container) {
+      const chapters = [
+        {
+          stars: 1,
+          tab: 'exercises',
+          num: 'Sfera 1 Stella • Cap. 01',
+          title: 'Libreria Esercizi',
+          desc: 'Petto, Schiena, Bicipiti, Tricipiti, Spalle, Gambe • 4 step & focus',
+          count: state.data.exercises.length
+        },
+        {
+          stars: 2,
+          tab: 'intensity',
+          num: 'Sfera 2 Stelle • Cap. 02',
+          title: 'Tecniche di Intensità',
+          desc: 'Rest-Pause, Drop Set, protocolli e gestione cedimento',
+          count: state.data.intensity.length
+        },
+        {
+          stars: 3,
+          tab: 'specializations',
+          num: 'Sfera 3 Stelle • Cap. 03',
+          title: 'Specializzazioni',
+          desc: 'Come e perché priorizzare compartimenti muscolari carenti',
+          count: state.data.specializations.length
+        },
+        {
+          stars: 4,
+          tab: 'hormones',
+          num: 'Sfera 4 Stelle • Cap. 04',
+          title: 'Ormoni nell’Allenamento',
+          desc: 'Risposta endocrina, meccanismi fisiologici e gestione recupero',
+          count: state.data.hormones.length
+        },
+        {
+          stars: 5,
+          tab: 'supplements',
+          num: 'Sfera 5 Stelle • Cap. 05',
+          title: 'Integratori',
+          desc: 'Meccanismi d’azione, dosaggi, timing e sinergie di assorbimento',
+          count: state.data.supplements.length
+        },
+        {
+          stars: 6,
+          tab: 'deepdives',
+          num: 'Sfera 6 Stelle • Cap. 06',
+          title: 'Approfondimenti',
+          desc: 'Schede monografiche su fisiologia, biochimica e biomeccanica',
+          count: state.data.deepDives.length
+        },
+        {
+          stars: 7,
+          tab: 'vocabulary',
+          num: 'Sfera 7 Stelle • Cap. 07',
+          title: 'Vocabolario (A–Z)',
+          desc: 'Glossario tecnico ordinato alfabeticamente dalla A alla Z',
+          count: state.data.vocabulary.length
+        }
+      ];
+
       container.innerHTML = `
         <div class="home-intro">
-          <p>Seleziona uno dei 4 capitoli del manuale tecnico:</p>
+          <p>Sali sulla Nuvola Speedy e scegli una delle 7 Sfere:</p>
         </div>
 
         <div class="chapters-grid">
-          <div class="chapter-card c-red" onclick="switchTab('exercises')">
-            <div class="chapter-left">
-              <div class="chapter-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                  <path d="M6.5 6.5h11M6.5 17.5h11M4 9v6M20 9v6M2 10.5v3M22 10.5v3M12 6.5v11"/>
-                </svg>
+          ${chapters.map(ch => `
+            <div class="kinto-cloud" onclick="switchTab('${ch.tab}')">
+              <div class="kinto-tail"></div>
+              <div class="chapter-left">
+                <div class="dragon-ball">
+                  ${renderDragonBallSvg(ch.stars)}
+                </div>
+                <div class="chapter-info">
+                  <div class="chapter-num">${ch.num}</div>
+                  <div class="chapter-title">${ch.title}</div>
+                  <div class="chapter-desc">${ch.desc}</div>
+                </div>
               </div>
-              <div>
-                <div class="chapter-num">Capitolo 01</div>
-                <div class="chapter-title">Libreria Esercizi</div>
-                <div class="chapter-desc">Distretti muscolari, 4 step, focus e posizione trainer</div>
-              </div>
-            </div>
-            <div class="chapter-right">
-              <span class="chapter-count">${state.data.exercises.length}</span>
-              <span class="chapter-arrow">›</span>
-            </div>
-          </div>
-
-          <div class="chapter-card c-amber" onclick="switchTab('intensity')">
-            <div class="chapter-left">
-              <div class="chapter-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-                </svg>
-              </div>
-              <div>
-                <div class="chapter-num">Capitolo 02</div>
-                <div class="chapter-title">Tecniche di Intensità</div>
-                <div class="chapter-desc">Rest-Pause, Drop Set, protocolli e gestione cedimento</div>
+              <div class="chapter-right">
+                <span class="chapter-count">${ch.count}</span>
+                <span class="chapter-arrow">›</span>
               </div>
             </div>
-            <div class="chapter-right">
-              <span class="chapter-count">${state.data.intensity.length}</span>
-              <span class="chapter-arrow">›</span>
-            </div>
-          </div>
-
-          <div class="chapter-card c-green" onclick="switchTab('specializations')">
-            <div class="chapter-left">
-              <div class="chapter-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                  <circle cx="12" cy="12" r="10"/>
-                  <circle cx="12" cy="12" r="6"/>
-                  <circle cx="12" cy="12" r="2"/>
-                </svg>
-              </div>
-              <div>
-                <div class="chapter-num">Capitolo 03</div>
-                <div class="chapter-title">Specializzazioni</div>
-                <div class="chapter-desc">Come e perché priorizzare compartimenti carenti</div>
-              </div>
-            </div>
-            <div class="chapter-right">
-              <span class="chapter-count">${state.data.specializations.length}</span>
-              <span class="chapter-arrow">›</span>
-            </div>
-          </div>
-
-          <div class="chapter-card c-blue" onclick="switchTab('vocabulary')">
-            <div class="chapter-left">
-              <div class="chapter-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                </svg>
-              </div>
-              <div>
-                <div class="chapter-num">Capitolo 04</div>
-                <div class="chapter-title">Vocabolario (A–Z)</div>
-                <div class="chapter-desc">Glossario tecnico ordinato alfabeticamente</div>
-              </div>
-            </div>
-            <div class="chapter-right">
-              <span class="chapter-count">${state.data.vocabulary.length}</span>
-              <span class="chapter-arrow">›</span>
-            </div>
-          </div>
+          `).join('')}
         </div>
       `;
     }
@@ -1100,24 +1364,73 @@
     function renderMuscleGrid(container) {
       let html = `
         <div class="section-header">
-          <span class="section-subtitle">Seleziona un distretto muscolare</span>
+          <span class="section-subtitle">Scegli il distretto o imposta l’avatar</span>
           <button class="primary-btn" onclick="openExerciseForm()">+ Esercizio</button>
         </div>
         <div class="muscle-grid">
       `;
 
-      MUSCLE_GROUPS.forEach(muscle => {
-        const count = state.data.exercises.filter(e => e.muscle === muscle).length;
+      MUSCLE_GROUPS.forEach(m => {
+        const count = state.data.exercises.filter(e => e.muscle === m.name).length;
+        const avatar = state.data.characterAvatars[m.name];
         html += `
-          <div class="muscle-card" onclick="selectMuscle('${muscle}')">
-            <div class="muscle-title">${muscle}</div>
-            <div class="muscle-count">${count} ${count === 1 ? 'esercizio' : 'esercizi'}</div>
+          <div class="muscle-card" onclick="selectMuscle('${m.name}')">
+            <div class="muscle-card-bar" style="background: ${m.color};"></div>
+            <div class="muscle-card-top">
+              <div>
+                <div class="muscle-title">${m.name}</div>
+                <span class="char-badge" style="background: ${m.softBg}; color: ${m.color};">${m.character}</span>
+              </div>
+              <div class="char-avatar-box" style="border-color: ${avatar ? m.color : 'var(--border)'}; border-style: ${avatar ? 'solid' : 'dashed'};" onclick="event.stopPropagation(); openAvatarForm('${m.name}')">
+                ${avatar
+                  ? `<img src="${escapeHtml(avatar)}" alt="${m.character}" />`
+                  : `<span class="char-avatar-hint">+ Foto<br>${m.character}</span>`
+                }
+              </div>
+            </div>
+            <div class="muscle-card-bottom">
+              <div class="muscle-count">${count} ${count === 1 ? 'esercizio' : 'esercizi'}</div>
+              <button type="button" class="avatar-edit-btn" onclick="event.stopPropagation(); openAvatarForm('${m.name}')">Avatar</button>
+            </div>
           </div>
         `;
       });
 
       html += `</div>`;
       container.innerHTML = html;
+    }
+
+    function openAvatarForm(muscleName) {
+      const mObj = MUSCLE_GROUPS.find(m => m.name === muscleName);
+      const currentAvatar = state.data.characterAvatars[muscleName] || '';
+      document.getElementById('modalTitle').textContent = `Avatar ${mObj.character} (${muscleName})`;
+      document.getElementById('modalBody').innerHTML = `
+        <form onsubmit="saveCharacterAvatar(event, '${muscleName}')">
+          <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">
+            Copia un’immagine di <strong>${mObj.character}</strong> e premi <strong>Ctrl + V</strong> (oppure tocca e seleziona <em>Incolla</em>) nel riquadro qui sotto.
+          </p>
+          <div class="form-group">
+            <div id="avatarPasteBox" class="paste-box" contenteditable="true" onpaste="handleGenericPaste(event, 'avatarValue', 'avatarPasteBox')">
+              ${currentAvatar
+                ? `<img src="${escapeHtml(currentAvatar)}" alt="${mObj.character}" />`
+                : `<span style="font-size:12px; color:var(--text-muted);">Tocca qui e premi <strong>Ctrl + V</strong> per incollare ${mObj.character}</span>`
+              }
+            </div>
+            <input type="hidden" id="avatarValue" value="${escapeHtml(currentAvatar)}" />
+            <button type="button" class="chip" style="margin-top:8px;" onclick="clearGenericPaste('avatarValue', 'avatarPasteBox', '${mObj.character}')">Rimuovi immagine</button>
+          </div>
+          <button type="submit" class="primary-btn" style="width:100%; justify-content:center; padding:14px;">Salva Avatar</button>
+        </form>
+      `;
+      openModal('formModal');
+    }
+
+    function saveCharacterAvatar(e, muscleName) {
+      e.preventDefault();
+      state.data.characterAvatars[muscleName] = document.getElementById('avatarValue').value.trim();
+      saveData();
+      closeModal('formModal');
+      render();
     }
 
     function selectMuscle(muscle) {
@@ -1190,22 +1503,9 @@
 
       const steps = [ex.step1, ex.step2, ex.step3, ex.step4].filter(Boolean);
 
-      let mediaHtml = '';
-      if (ex.mediaUrl) {
-        mediaHtml = `
-          <div class="media-frame">
-            <img src="${escapeHtml(ex.mediaUrl)}" alt="${escapeHtml(ex.name)}" />
-          </div>
-        `;
-      } else {
-        mediaHtml = `
-          <div class="media-frame">
-            <div class="anatomy-placeholder">
-              Nessuna immagine allegata
-            </div>
-          </div>
-        `;
-      }
+      const mediaHtml = ex.mediaUrl
+        ? `<div class="media-frame"><img src="${escapeHtml(ex.mediaUrl)}" alt="${escapeHtml(ex.name)}" /></div>`
+        : `<div class="media-frame"><div class="anatomy-placeholder">Nessuna immagine allegata</div></div>`;
 
       container.innerHTML = `
         <div class="detail-box">
@@ -1336,6 +1636,135 @@
       container.innerHTML = html;
     }
 
+    function renderHormones(container) {
+      let html = `
+        <div class="section-header">
+          <span class="section-subtitle">${state.data.hormones.length} ormoni / assi salvati</span>
+          <button class="primary-btn" onclick="openHormoneForm()">+ Ormone</button>
+        </div>
+        <div class="card-list">
+      `;
+
+      state.data.hormones.forEach(item => {
+        html += `
+          <div class="detail-box" style="margin-bottom:0;">
+            <div class="item-top">
+              <div class="item-title" style="font-size:17px;">${escapeHtml(item.name)}</div>
+              <span class="badge blue">Endocrino</span>
+            </div>
+            <div class="field-block">
+              <span class="field-label blue">Sede di Produzione & Natura</span>
+              <div class="field-value">${escapeHtml(item.origin || '—')}</div>
+            </div>
+            <div class="field-block">
+              <span class="field-label">Risposta all’Allenamento</span>
+              <div class="field-value">${escapeHtml(item.response || '—')}</div>
+            </div>
+            <div class="field-block">
+              <span class="field-label">Effetti Metabolici & Tissutali</span>
+              <div class="field-value">${escapeHtml(item.effects || '—')}</div>
+            </div>
+            <div class="field-block">
+              <span class="field-label green">Applicazione Pratica in Sala Pesi</span>
+              <div class="field-value">${escapeHtml(item.practical || '—')}</div>
+            </div>
+            <div class="detail-actions">
+              <button class="secondary-btn" onclick="openHormoneForm('${item.id}')">Modifica</button>
+              <button class="danger-btn" onclick="deleteItem('hormones', '${item.id}')">Elimina</button>
+            </div>
+          </div>
+        `;
+      });
+
+      html += `</div>`;
+      container.innerHTML = html;
+    }
+
+    function renderSupplements(container) {
+      let html = `
+        <div class="section-header">
+          <span class="section-subtitle">${state.data.supplements.length} integratori salvati</span>
+          <button class="primary-btn" onclick="openSupplementForm()">+ Integratore</button>
+        </div>
+        <div class="card-list">
+      `;
+
+      state.data.supplements.forEach(item => {
+        html += `
+          <div class="detail-box" style="margin-bottom:0;">
+            <div class="item-top">
+              <div class="item-title" style="font-size:17px;">${escapeHtml(item.name)}</div>
+              <span class="badge green">${escapeHtml(item.category || 'Integratore')}</span>
+            </div>
+            <div class="field-block">
+              <span class="field-label">Meccanismo d’Azione</span>
+              <div class="field-value">${escapeHtml(item.mechanism || '—')}</div>
+            </div>
+            <div class="field-block">
+              <span class="field-label amber">Dosaggio & Timing Ottimale</span>
+              <div class="field-value">${escapeHtml(item.dosage || '—')}</div>
+            </div>
+            <div class="field-block">
+              <span class="field-label blue">Sinergie & Antagonismi (Assorbimento)</span>
+              <div class="field-value">${escapeHtml(item.interactions || '—')}</div>
+            </div>
+            <div class="field-block">
+              <span class="field-label">Note & Evidenze</span>
+              <div class="field-value">${escapeHtml(item.notes || '—')}</div>
+            </div>
+            <div class="detail-actions">
+              <button class="secondary-btn" onclick="openSupplementForm('${item.id}')">Modifica</button>
+              <button class="danger-btn" onclick="deleteItem('supplements', '${item.id}')">Elimina</button>
+            </div>
+          </div>
+        `;
+      });
+
+      html += `</div>`;
+      container.innerHTML = html;
+    }
+
+    function renderDeepDives(container) {
+      let html = `
+        <div class="section-header">
+          <span class="section-subtitle">${state.data.deepDives.length} approfondimenti salvati</span>
+          <button class="primary-btn" onclick="openDeepDiveForm()">+ Scheda</button>
+        </div>
+        <div class="card-list">
+      `;
+
+      state.data.deepDives.forEach(item => {
+        html += `
+          <div class="detail-box" style="margin-bottom:0;">
+            <div class="item-top">
+              <div class="item-title" style="font-size:17px;">${escapeHtml(item.title)}</div>
+              <span class="badge purple">${escapeHtml(item.tag || 'Approfondimento')}</span>
+            </div>
+            ${item.mediaUrl ? `<div class="media-frame"><img src="${escapeHtml(item.mediaUrl)}" alt="${escapeHtml(item.title)}" /></div>` : ''}
+            <div class="field-block">
+              <span class="field-label purple">Sintesi Concettuale</span>
+              <div class="field-value">${escapeHtml(item.summary || '—')}</div>
+            </div>
+            <div class="field-block">
+              <span class="field-label">Meccanismi & Dettagli Tecnici</span>
+              <div class="field-value">${escapeHtml(item.details || '—')}</div>
+            </div>
+            <div class="field-block">
+              <span class="field-label green">Ricaduta Pratica sull’Allenamento</span>
+              <div class="field-value">${escapeHtml(item.practical || '—')}</div>
+            </div>
+            <div class="detail-actions">
+              <button class="secondary-btn" onclick="openDeepDiveForm('${item.id}')">Modifica</button>
+              <button class="danger-btn" onclick="deleteItem('deepDives', '${item.id}')">Elimina</button>
+            </div>
+          </div>
+        `;
+      });
+
+      html += `</div>`;
+      container.innerHTML = html;
+    }
+
     function renderVocabulary(container) {
       const q = state.searchQuery.toLowerCase();
       const sorted = [...state.data.vocabulary]
@@ -1383,19 +1812,18 @@
       container.innerHTML = html;
     }
 
-    /* Forms */
+    /* Form Modals */
     function openExerciseForm(id = null, defaultMuscle = null) {
       const ex = id ? state.data.exercises.find(e => e.id === id) : null;
       document.getElementById('modalTitle').textContent = ex ? 'Modifica Esercizio' : 'Nuovo Esercizio';
-
       const currentMedia = ex?.mediaUrl || '';
 
       document.getElementById('modalBody').innerHTML = `
         <form onsubmit="saveExercise(event, '${id || ''}')">
           <div class="form-group">
-            <label>Gruppo Muscolare</label>
+            <label>Gruppo Muscolare (Personaggio)</label>
             <select id="exMuscle" required>
-              ${MUSCLE_GROUPS.map(m => `<option value="${m}" ${(ex ? ex.muscle : (defaultMuscle || MUSCLE_GROUPS[0])) === m ? 'selected' : ''}>${m}</option>`).join('')}
+              ${MUSCLE_GROUPS.map(m => `<option value="${m.name}" ${(ex ? ex.muscle : (defaultMuscle || MUSCLE_GROUPS[0].name)) === m.name ? 'selected' : ''}>${m.name} (${m.character})</option>`).join('')}
             </select>
           </div>
           <div class="form-group">
@@ -1409,12 +1837,12 @@
             </select>
           </div>
           <div class="form-group">
-            <label>Immagine Anatomica / GIF</label>
-            <div id="pasteDropBox" class="paste-box" contenteditable="true" onpaste="handlePasteImage(event)" title="Clicca qui e premi Ctrl+V per incollare l'immagine">
+            <label>Immagine Esercizio</label>
+            <div id="pasteDropBox" class="paste-box" contenteditable="true" onpaste="handleGenericPaste(event, 'exMedia', 'pasteDropBox')">
               ${currentMedia ? `<img src="${escapeHtml(currentMedia)}" alt="Preview" />` : `<span style="font-size:12px; color:var(--text-muted);">Clicca qui e premi <strong>Ctrl + V</strong> per incollare l'immagine</span>`}
             </div>
             <input type="hidden" id="exMedia" value="${escapeHtml(currentMedia)}" />
-            <button type="button" class="chip" style="margin-top:6px;" onclick="clearPastedImage()">Rimuovi immagine</button>
+            <button type="button" class="chip" style="margin-top:6px;" onclick="clearGenericPaste('exMedia', 'pasteDropBox')">Rimuovi immagine</button>
           </div>
           <div class="form-group">
             <label>Descrizione Esecuzione — Punto 1 (Setup)</label>
@@ -1452,29 +1880,6 @@
         </form>
       `;
       openModal('formModal');
-    }
-
-    function handlePasteImage(e) {
-      const items = (e.clipboardData || e.originalEvent.clipboardData).items;
-      for (let i = 0; i < items.length; i++) {
-        if (items[i].type.indexOf('image') !== -1) {
-          const blob = items[i].getAsFile();
-          const reader = new FileReader();
-          reader.onload = function(evt) {
-            const base64 = evt.target.result;
-            document.getElementById('exMedia').value = base64;
-            document.getElementById('pasteDropBox').innerHTML = `<img src="${base64}" alt="Incollata" />`;
-          };
-          reader.readAsDataURL(blob);
-          e.preventDefault();
-          break;
-        }
-      }
-    }
-
-    function clearPastedImage() {
-      document.getElementById('exMedia').value = '';
-      document.getElementById('pasteDropBox').innerHTML = `<span style="font-size:12px; color:var(--text-muted);">Clicca qui e premi <strong>Ctrl + V</strong> per incollare l'immagine</span>`;
     }
 
     function saveExercise(e, id) {
@@ -1561,7 +1966,7 @@
         <form onsubmit="saveSpec(event, '${id || ''}')">
           <div class="form-group">
             <label>Compartimento Muscolare Carente</label>
-            <input id="specMuscle" type="text" required placeholder="Es. Deltoide Laterale, Gambe, Dorso..." value="${escapeHtml(item?.muscle || '')}" />
+            <input id="specMuscle" type="text" required placeholder="Es. Spalle, Gambe, Schiena..." value="${escapeHtml(item?.muscle || '')}" />
           </div>
           <div class="form-group">
             <label>Perché e Come Specializzare (Razionale)</label>
@@ -1606,6 +2011,177 @@
       render();
     }
 
+    function openHormoneForm(id = null) {
+      const item = id ? state.data.hormones.find(h => h.id === id) : null;
+      document.getElementById('modalTitle').textContent = item ? 'Modifica Ormone' : 'Nuovo Ormone / Asse';
+      document.getElementById('modalBody').innerHTML = `
+        <form onsubmit="saveHormone(event, '${id || ''}')">
+          <div class="form-group">
+            <label>Nome Ormone / Asse</label>
+            <input id="horName" type="text" required placeholder="Es. Insulina, Catecolamine, GH..." value="${escapeHtml(item?.name || '')}" />
+          </div>
+          <div class="form-group">
+            <label>Sede di Produzione & Natura</label>
+            <input id="horOrig" type="text" placeholder="Es. Cellule beta pancreatiche — Ormone peptidico" value="${escapeHtml(item?.origin || '')}" />
+          </div>
+          <div class="form-group">
+            <label>Risposta all’Allenamento</label>
+            <textarea id="horResp" required placeholder="Cosa lo stimola o lo riduce durante e dopo l'allenamento...">${escapeHtml(item?.response || '')}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Effetti Metabolici & Tissutali</label>
+            <textarea id="horEff" placeholder="Sintesi proteica, lipolisi, glicogenosintesi...">${escapeHtml(item?.effects || '')}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Applicazione Pratica in Sala Pesi</label>
+            <textarea id="horPrac" placeholder="Gestione recuperi, volume, nutrizione peri-workout...">${escapeHtml(item?.practical || '')}</textarea>
+          </div>
+          <button type="submit" class="primary-btn" style="width:100%; justify-content:center; padding:14px;">Salva Scheda Ormone</button>
+        </form>
+      `;
+      openModal('formModal');
+    }
+
+    function saveHormone(e, id) {
+      e.preventDefault();
+      const payload = {
+        id: id || 'hor_' + Date.now(),
+        name: document.getElementById('horName').value.trim(),
+        origin: document.getElementById('horOrig').value.trim(),
+        response: document.getElementById('horResp').value.trim(),
+        effects: document.getElementById('horEff').value.trim(),
+        practical: document.getElementById('horPrac').value.trim()
+      };
+      if (id) {
+        const idx = state.data.hormones.findIndex(h => h.id === id);
+        if (idx !== -1) state.data.hormones[idx] = payload;
+      } else {
+        state.data.hormones.push(payload);
+      }
+      saveData();
+      closeModal('formModal');
+      render();
+    }
+
+    function openSupplementForm(id = null) {
+      const item = id ? state.data.supplements.find(s => s.id === id) : null;
+      document.getElementById('modalTitle').textContent = item ? 'Modifica Integratore' : 'Nuovo Integratore';
+      document.getElementById('modalBody').innerHTML = `
+        <form onsubmit="saveSupplement(event, '${id || ''}')">
+          <div class="form-group">
+            <label>Nome Integratore</label>
+            <input id="supName" type="text" required placeholder="Es. Caffeina, Vitamina D3 + K2..." value="${escapeHtml(item?.name || '')}" />
+          </div>
+          <div class="form-group">
+            <label>Categoria</label>
+            <input id="supCat" type="text" placeholder="Es. Ergogenico, Micronutrienti, Recupero..." value="${escapeHtml(item?.category || '')}" />
+          </div>
+          <div class="form-group">
+            <label>Meccanismo d’Azione</label>
+            <textarea id="supMech" required placeholder="Come agisce a livello fisiologico o biochimico...">${escapeHtml(item?.mechanism || '')}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Dosaggio & Timing Ottimale</label>
+            <textarea id="supDos" placeholder="Quanto e quando assumerlo...">${escapeHtml(item?.dosage || '')}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Sinergie & Antagonismi (Assorbimento)</label>
+            <textarea id="supInt" placeholder="Competizione tra minerali, pasti liposolubili...">${escapeHtml(item?.interactions || '')}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Note & Evidenze</label>
+            <textarea id="supNotes" placeholder="Accortezze pratiche e livello di evidenza...">${escapeHtml(item?.notes || '')}</textarea>
+          </div>
+          <button type="submit" class="primary-btn" style="width:100%; justify-content:center; padding:14px;">Salva Integratore</button>
+        </form>
+      `;
+      openModal('formModal');
+    }
+
+    function saveSupplement(e, id) {
+      e.preventDefault();
+      const payload = {
+        id: id || 'sup_' + Date.now(),
+        name: document.getElementById('supName').value.trim(),
+        category: document.getElementById('supCat').value.trim(),
+        mechanism: document.getElementById('supMech').value.trim(),
+        dosage: document.getElementById('supDos').value.trim(),
+        interactions: document.getElementById('supInt').value.trim(),
+        notes: document.getElementById('supNotes').value.trim()
+      };
+      if (id) {
+        const idx = state.data.supplements.findIndex(s => s.id === id);
+        if (idx !== -1) state.data.supplements[idx] = payload;
+      } else {
+        state.data.supplements.push(payload);
+      }
+      saveData();
+      closeModal('formModal');
+      render();
+    }
+
+    function openDeepDiveForm(id = null) {
+      const item = id ? state.data.deepDives.find(d => d.id === id) : null;
+      const currentMedia = item?.mediaUrl || '';
+      document.getElementById('modalTitle').textContent = item ? 'Modifica Approfondimento' : 'Nuovo Approfondimento';
+      document.getElementById('modalBody').innerHTML = `
+        <form onsubmit="saveDeepDive(event, '${id || ''}')">
+          <div class="form-group">
+            <label>Titolo Approfondimento</label>
+            <input id="ddTitle" type="text" required placeholder="Es. Ipoglicemia reattiva pre-workout..." value="${escapeHtml(item?.title || '')}" />
+          </div>
+          <div class="form-group">
+            <label>Ambito / Tag</label>
+            <input id="ddTag" type="text" placeholder="Es. Fisiologia, Biomeccanica, Biochimica..." value="${escapeHtml(item?.tag || '')}" />
+          </div>
+          <div class="form-group">
+            <label>Schema o Grafico (Opzionale)</label>
+            <div id="ddPasteBox" class="paste-box" contenteditable="true" onpaste="handleGenericPaste(event, 'ddMedia', 'ddPasteBox')">
+              ${currentMedia ? `<img src="${escapeHtml(currentMedia)}" alt="Schema" />` : `<span style="font-size:12px; color:var(--text-muted);">Clicca qui e premi <strong>Ctrl + V</strong> per incollare uno schema</span>`}
+            </div>
+            <input type="hidden" id="ddMedia" value="${escapeHtml(currentMedia)}" />
+            <button type="button" class="chip" style="margin-top:6px;" onclick="clearGenericPaste('ddMedia', 'ddPasteBox')">Rimuovi immagine</button>
+          </div>
+          <div class="form-group">
+            <label>Sintesi Concettuale</label>
+            <textarea id="ddSum" required placeholder="Il punto chiave spiegato in breve...">${escapeHtml(item?.summary || '')}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Meccanismi & Dettagli Tecnici</label>
+            <textarea id="ddDet" placeholder="Spiegazione approfondita per il ripasso...">${escapeHtml(item?.details || '')}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Ricaduta Pratica sull’Allenamento</label>
+            <textarea id="ddPrac" placeholder="Come applicarlo nella programmazione...">${escapeHtml(item?.practical || '')}</textarea>
+          </div>
+          <button type="submit" class="primary-btn" style="width:100%; justify-content:center; padding:14px;">Salva Approfondimento</button>
+        </form>
+      `;
+      openModal('formModal');
+    }
+
+    function saveDeepDive(e, id) {
+      e.preventDefault();
+      const payload = {
+        id: id || 'dd_' + Date.now(),
+        title: document.getElementById('ddTitle').value.trim(),
+        tag: document.getElementById('ddTag').value.trim(),
+        mediaUrl: document.getElementById('ddMedia').value.trim(),
+        summary: document.getElementById('ddSum').value.trim(),
+        details: document.getElementById('ddDet').value.trim(),
+        practical: document.getElementById('ddPrac').value.trim()
+      };
+      if (id) {
+        const idx = state.data.deepDives.findIndex(d => d.id === id);
+        if (idx !== -1) state.data.deepDives[idx] = payload;
+      } else {
+        state.data.deepDives.push(payload);
+      }
+      saveData();
+      closeModal('formModal');
+      render();
+    }
+
     function openVocabForm(id = null) {
       const item = id ? state.data.vocabulary.find(v => v.id === id) : null;
       document.getElementById('modalTitle').textContent = item ? 'Modifica Termine' : 'Nuovo Termine Vocabolario';
@@ -1641,6 +2217,30 @@
       saveData();
       closeModal('formModal');
       render();
+    }
+
+    /* Gestione generica Incolla Immagine (Ctrl + V / Tap) */
+    function handleGenericPaste(e, inputId, boxId) {
+      const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf('image') !== -1) {
+          const blob = items[i].getAsFile();
+          const reader = new FileReader();
+          reader.onload = function(evt) {
+            const base64 = evt.target.result;
+            document.getElementById(inputId).value = base64;
+            document.getElementById(boxId).innerHTML = `<img src="${base64}" alt="Incollata" />`;
+          };
+          reader.readAsDataURL(blob);
+          e.preventDefault();
+          break;
+        }
+      }
+    }
+
+    function clearGenericPaste(inputId, boxId, labelHint = "l'immagine") {
+      document.getElementById(inputId).value = '';
+      document.getElementById(boxId).innerHTML = `<span style="font-size:12px; color:var(--text-muted);">Clicca qui e premi <strong>Ctrl + V</strong> per incollare ${escapeHtml(labelHint)}</span>`;
     }
 
     function deleteItem(collection, id) {
@@ -1684,7 +2284,16 @@
         try {
           const imported = JSON.parse(e.target.result);
           if (imported.exercises && imported.vocabulary) {
-            state.data = imported;
+            state.data = {
+              characterAvatars: imported.characterAvatars || DEFAULT_DATA.characterAvatars,
+              exercises: imported.exercises || [],
+              intensity: imported.intensity || [],
+              specializations: imported.specializations || [],
+              hormones: imported.hormones || DEFAULT_DATA.hormones,
+              supplements: imported.supplements || DEFAULT_DATA.supplements,
+              deepDives: imported.deepDives || DEFAULT_DATA.deepDives,
+              vocabulary: imported.vocabulary || []
+            };
             saveData();
             closeModal('backupModal');
             render();
