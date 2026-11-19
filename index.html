@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Manuale Sala" />
+  <meta name="theme-color" content="#0A0A0C" />
+  <title>Manuale Sala Pesi</title>
+  <style>
+    :root {
+      --bg: #0A0A0C;
+      --surface: #141418;
+      --surface-2: #1E1E24;
+      --border: #2A2A32;
+      --text: #F5F5F7;
+      --text-muted: #9898A6;
+      --accent: #FF4D2D;
+      --accent-soft: rgba(255, 77, 45, 0.14);
+      --amber: #FF9F1C;
+      --amber-soft: rgba(255, 159, 28, 0.14);
+      --green: #2EC4B6;
+      --green-soft: rgba(46, 196, 182, 0.14);
+      --blue: #3A86FF;
+      --blue-soft: rgba(58, 134, 255, 0.14);
+      --safe-top: env(safe-area-inset-top, 20px);
+      --safe-bottom: env(safe-area-inset-bottom, 20px);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+      padding-top: calc(var(--safe-top) + 56px);
+      padding-bottom: calc(var(--safe-bottom) + 84px);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: rgba(10, 10, 12, 0.9);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: calc(var(--safe-top) + 8px) 16px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .back-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .back-btn.visible {
+      display: inline-flex;
+    }
+
+    h1 {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .backup-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 7px 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .backup-btn:active {
+      transform: scale(0.96);
+    }
+
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .home-intro {
+      margin-bottom: 16px;
+    }
+
+    .home-intro p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .chapters-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .chapter-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 20px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.12s, border-color 0.15s;
+    }
+
+    .chapter-card:active {
+      transform: scale(0.985);
+      background: var(--surface-2);
+    }
+
+    .chapter-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+    }
+
+    .chapter-card.c-red::before { background: var(--accent); }
+    .chapter-card.c-amber::before { background: var(--amber); }
+    .chapter-card.c-green::before { background: var(--green); }
+    .chapter-card.c-blue::before { background: var(--blue); }
+
+    .chapter-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .chapter-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .c-red .chapter-icon { background: var(--accent-soft); color: var(--accent); }
+    .c-amber .chapter-icon { background: var(--amber-soft); color: var(--amber); }
+    .c-green .chapter-icon { background: var(--green-soft); color: var(--green); }
+    .c-blue .chapter-icon { background: var(--blue-soft); color: var(--blue); }
+
+    .chapter-num {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .chapter-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .chapter-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .chapter-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .chapter-count {
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 9px;
+      border-radius: 8px;
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .chapter-arrow {
+      font-size: 18px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      gap: 10px;
+    }
+
+    .section-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .primary-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(255, 77, 45, 0.3);
+    }
+
+    .primary-btn:active {
+      transform: scale(0.97);
+    }
+
+    .search-box {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 11px 14px;
+      border-radius: 12px;
+      font-size: 15px;
+      margin-bottom: 12px;
+      outline: none;
+    }
+
+    .search-box:focus {
+      border-color: var(--accent);
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      scrollbar-width: none;
+    }
+
+    .filter-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .chip.active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .muscle-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .muscle-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px 14px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 92px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .muscle-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--accent);
+    }
+
+    .muscle-card:active {
+      background: var(--surface-2);
+    }
+
+    .muscle-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .muscle-count {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .item-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 15px;
+      cursor: pointer;
+    }
+
+    .item-card:active {
+      background: var(--surface-2);
+    }
+
+    .item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .item-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      white-space: nowrap;
+    }
+
+    .badge.amber {
+      background: var(--amber-soft);
+      color: var(--amber);
+    }
+
+    .badge.green {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .item-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .detail-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .media-frame {
+      width: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #050507;
+      border: 1px solid var(--border);
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 170px;
+    }
+
+    .media-frame img {
+      width: 100%;
+      max-height: 290px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .anatomy-placeholder {
+      padding: 18px;
+      text-align: center;
+      width: 100%;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .field-block {
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .field-block:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .field-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      color: var(--accent);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .field-label.amber { color: var(--amber); }
+    .field-label.green { color: var(--green); }
+
+    .field-value {
+      font-size: 14px;
+      color: var(--text);
+      white-space: pre-line;
+    }
+
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .step-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      background: var(--surface-2);
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .step-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .step-text {
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .detail-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .secondary-btn {
+      flex: 1;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 11px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .danger-btn {
+      background: rgba(255, 59, 48, 0.14);
+      border: 1px solid rgba(255, 59, 48, 0.4);
+      color: #FF453A;
+      padding: 11px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .alpha-group {
+      margin-bottom: 18px;
+    }
+
+    .alpha-letter {
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--blue);
+      background: var(--blue-soft);
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: rgba(14, 14, 18, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border);
+      padding: 8px 4px calc(var(--safe-bottom) + 6px);
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .nav-item {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px 0;
+    }
+
+    .nav-item.active {
+      color: var(--accent);
+    }
+
+    .nav-item svg {
+      width: 21px;
+      height: 21px;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+      z-index: 100;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-sheet {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-radius: 22px 22px 0 0;
+      width: 100%;
+      max-width: 680px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 18px 16px calc(var(--safe-bottom) + 20px);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-title {
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .close-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .form-group {
+      margin-bottom: 13px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 11px 12px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-family: inherit;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .form-group textarea {
+      min-height: 76px;
+      resize: vertical;
+    }
+
+    .paste-box {
+      width: 100%;
+      min-height: 90px;
+      background: var(--bg);
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      outline: none;
+      position: relative;
+    }
+
+    .paste-box:focus {
+      border-color: var(--accent);
+    }
+
+    .paste-box img {
+      max-height: 90px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 36px 16px;
+      color: var(--text-muted);
+      font-size: 14px;
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-left">
+      <button id="backBtn" class="back-btn" onclick="goBack()">‹ Indietro</button>
+      <h1 id="headerTitle">MANUALE <span>SALA</span></h1>
+    </div>
+    <button class="backup-btn" onclick="openBackupModal()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Backup
+    </button>
+  </header>
+
+  <main id="appContent"></main>
+
+  <nav>
+    <button class="nav-item active" data-tab="home" onclick="switchTab('home')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+      Home
+    </button>
+    <button class="nav-item" data-tab="exercises" onclick="switchTab('exercises')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6.5 6.5h11M6.5 17.5h11M4 9v6M20 9v6M2 10.5v3M22 10.5v3M12 6.5v11"/>
+      </svg>
+      Esercizi
+    </button>
+    <button class="nav-item" data-tab="intensity" onclick="switchTab('intensity')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+      </svg>
+      Intensità
+    </button>
+    <button class="nav-item" data-tab="specializations" onclick="switchTab('specializations')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <circle cx="12" cy="12" r="6"/>
+        <circle cx="12" cy="12" r="2"/>
+      </svg>
+      Specializz.
+    </button>
+    <button class="nav-item" data-tab="vocabulary" onclick="switchTab('vocabulary')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+      </svg>
+      Vocabolario
+    </button>
+  </nav>
+
+  <div id="formModal" class="modal-backdrop">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <span id="modalTitle" class="modal-title">Nuovo Elemento</span>
+        <button class="close-btn" onclick="closeModal('formModal')">✕</button>
+      </div>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <div id="backupModal" class="modal-backdrop">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <span class="modal-title">Backup & Trasferimento Dati</span>
+        <button class="close-btn" onclick="closeModal('backupModal')">✕</button>
+      </div>
+      <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 16px;">
+        Esporta tutti i tuoi esercizi, tecniche, specializzazioni e definizioni in un file di sicurezza per trasferirli dal PC all'iPhone (o viceversa).
+      </p>
+      <button class="primary-btn" style="width: 100%; justify-content: center; padding: 13px; margin-bottom: 12px;" onclick="exportData()">
+        Scarica File di Backup (.json)
+      </button>
+      <label style="display: block; width: 100%; text-align: center; background: var(--surface-2); border: 1px solid var(--border); padding: 13px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer;">
+        Importa File di Backup (.json)
+        <input type="file" accept=".json" style="display: none;" onchange="importData(event)" />
+      </label>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'manuale_sala_pesi_dark_v4';
+
+    const MUSCLE_GROUPS = [
+      'Pettorali',
+      'Dorsali',
+      'Spalle',
+      'Quadricipiti',
+      'Femorali e Glutei',
+      'Bicipiti',
+      'Tricipiti',
+      'Polpacci e Addome'
+    ];
+
+    const EQUIPMENTS = ['Tutti', 'Bilanciere', 'Manubri', 'Cavi', 'Macchine', 'Corpo libero'];
+
+    const DEFAULT_DATA = {
+      exercises: [
+        {
+          id: 'ex_1',
+          muscle: 'Pettorali',
+          name: 'Panca Piana Bilanciere',
+          equipment: 'Bilanciere',
+          mediaUrl: '',
+          step1: 'Sdraiati sulla panca con gli occhi sotto il bilanciere, adduci e deprimi le scapole mantenendo un arco toracico fisiologico e i piedi ben piantati a terra.',
+          step2: 'Afferra il bilanciere con presa prona leggermente più larga delle spalle, polsi neutri in linea con gli avambracci, e stacca il carico portandolo sopra le spalle.',
+          step3: 'Inspira, blocca il core e scendi in modo controllato (2-3 sec) fino a sfiorare lo sterno basso con gomiti inclinati a circa 45-60° rispetto al busto.',
+          step4: 'Spingi esplosivamente verso l’alto mantenendo l’assetto scapolare fino alla completa estensione dei gomiti senza perdere la compattezza toracica.',
+          focus: 'Gran Pettorale (fasci sterno-costali), con sinergia di Deltoide Anteriore e Tricipite Brachiale.',
+          resistanceProfile: 'Picco di tensione meccanica nella fase iniziale/media (massimo allungamento al petto, dove il braccio di leva della gravità sulla spalla è massimo); calo di resistenza in chiusura.',
+          trainerPosition: 'In piedi dietro la testa dell’atleta (sulla pedana spotter) per assistere lo stacco iniziale e intervenire in sicurezza vicino allo sticking point.',
+          comments: 'Evitare di rimbalzare sul petto o aprire i gomiti a 90° per ridurre lo stress sulla capsula anteriore della spalla.'
+        }
+      ],
+      intensity: [
+        {
+          id: 'int_1',
+          name: 'Rest-Pause',
+          mechanism: 'Tensione meccanica ad alto reclutamento + stress metabolico',
+          protocol: 'Esegui una serie fino a RIR 0-1 (es. 8-10 ripetizioni), riposa 15-20 secondi mantenendo lo stesso carico, poi esegui altre 2-4 ripetizioni. Ripeti eventualmente un secondo mini-set.',
+          whenToUse: 'Ideale su macchine guidate o esercizi di isolamento sicuri nell’ultimo set di un esercizio. Da evitare su multiarticolari pesanti ad alto rischio tecnico (squat, stacco).'
+        },
+        {
+          id: 'int_2',
+          name: 'Drop Set (Stripping)',
+          mechanism: 'Stress metabolico elevato e accumulo di fatica periferica',
+          protocol: 'Raggiungi il cedimento tecnico con un carico, riduci immediatamente il peso del 20-30% senza pausa e continua fino a nuovo cedimento (1 o 2 scalate).',
+          whenToUse: 'Ottimo ai cavi, manubri o macchine selectorized per aumentare rapidamente il volume efficace in poco tempo.'
+        }
+      ],
+      specializations: [
+        {
+          id: 'spec_1',
+          muscle: 'Gambe (Quadricipiti / Femorali)',
+          rationale: 'Quando gli arti inferiori risultano carenti rispetto al tronco, serve aumentare la frequenza settimanale e la frazione di volume dedicata riducendo temporaneamente il volume degli altri distretti per non saturare il recupero sistemico.',
+          frequency: '2-3 sedute settimanali (es. Focus Quadricipiti + Focus Femorali/Glutei)',
+          volume: '14-18 serie allenanti settimanali sui muscoli target; restanti gruppi a volume di mantenimento (6-8 serie/settimana).',
+          keyExercises: 'Hack Squat / Pendulum Squat, Leg Press 45°, Romanian Deadlift (RDL), Seated Leg Curl, Leg Extension.'
+        }
+      ],
+      vocabulary: [
+        {
+          id: 'voc_1',
+          term: 'Profilo di Resistenza',
+          definition: 'Variazione della coppia resistente esterna lungo l’arco di movimento (ROM) di un esercizio, determinata dal braccio di leva tra il vettore di forza e l’articolazione.'
+        },
+        {
+          id: 'voc_2',
+          term: 'RIR (Reps in Reserve)',
+          definition: 'Numero di ripetizioni ripetibili ancora con tecnica corretta prima di raggiungere il cedimento muscolare concentrico.'
+        },
+        {
+          id: 'voc_3',
+          term: 'Sticking Point',
+          definition: 'Punto critico dell’alzata (spesso nella fase iniziale-intermedia della concentrica) in cui il rapporto tra forza esprimibile dal muscolo e momento resistente esterno è più sfavorevole.'
+        }
+      ]
+    };
+
+    let state = {
+      data: loadData(),
+      tab: 'home',
+      selectedMuscle: null,
+      selectedExerciseId: null,
+      equipmentFilter: 'Tutti',
+      searchQuery: ''
+    };
+
+    function loadData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('manuale_sala_pesi_dark_v3') || localStorage.getItem('manuale_sala_pesi_dark_v2') || localStorage.getItem('manuale_sala_pesi_dark_v1');
+        if (!raw) return JSON.parse(JSON.stringify(DEFAULT_DATA));
+        const parsed = JSON.parse(raw);
+        return {
+          exercises: parsed.exercises || [],
+          intensity: parsed.intensity || [],
+          specializations: parsed.specializations || [],
+          vocabulary: parsed.vocabulary || []
+        };
+      } catch (e) {
+        return JSON.parse(JSON.stringify(DEFAULT_DATA));
+      }
+    }
+
+    function saveData() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
+    }
+
+    function switchTab(tab) {
+      state.tab = tab;
+      state.selectedMuscle = null;
+      state.selectedExerciseId = null;
+      state.equipmentFilter = 'Tutti';
+      state.searchQuery = '';
+      document.querySelectorAll('.nav-item').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === tab);
+      });
+      render();
+      window.scrollTo(0, 0);
+    }
+
+    function goBack() {
+      if (state.tab === 'exercises') {
+        if (state.selectedExerciseId) {
+          state.selectedExerciseId = null;
+        } else if (state.selectedMuscle) {
+          state.selectedMuscle = null;
+          state.equipmentFilter = 'Tutti';
+          state.searchQuery = '';
+        } else {
+          switchTab('home');
+          return;
+        }
+      } else if (state.tab !== 'home') {
+        switchTab('home');
+        return;
+      }
+      render();
+    }
+
+    function render() {
+      const container = document.getElementById('appContent');
+      const backBtn = document.getElementById('backBtn');
+      const headerTitle = document.getElementById('headerTitle');
+
+      const hasBack = state.tab !== 'home';
+      backBtn.classList.toggle('visible', hasBack);
+      if (state.tab !== 'home' && !state.selectedMuscle && !state.selectedExerciseId) {
+        backBtn.textContent = '‹ Home';
+      } else {
+        backBtn.textContent = '‹ Indietro';
+      }
+
+      if (state.tab === 'home') {
+        headerTitle.innerHTML = 'MANUALE <span>SALA</span>';
+        renderHome(container);
+      } else if (state.tab === 'exercises') {
+        if (state.selectedExerciseId) {
+          headerTitle.innerHTML = 'SCHEDA <span>ESERCIZIO</span>';
+          renderExerciseDetail(container);
+        } else if (state.selectedMuscle) {
+          headerTitle.innerHTML = `${state.selectedMuscle.toUpperCase()}`;
+          renderExerciseList(container);
+        } else {
+          headerTitle.innerHTML = 'LIBRERIA <span>ESERCIZI</span>';
+          renderMuscleGrid(container);
+        }
+      } else if (state.tab === 'intensity') {
+        headerTitle.innerHTML = 'TECNICHE <span>INTENSITÀ</span>';
+        renderIntensity(container);
+      } else if (state.tab === 'specializations') {
+        headerTitle.innerHTML = 'PROTOCOLLI <span>SPECIALIZZ.</span>';
+        renderSpecializations(container);
+      } else if (state.tab === 'vocabulary') {
+        headerTitle.innerHTML = 'VOCABOLARIO <span>A–Z</span>';
+        renderVocabulary(container);
+      }
+    }
+
+    function renderHome(container) {
+      container.innerHTML = `
+        <div class="home-intro">
+          <p>Seleziona uno dei 4 capitoli del manuale tecnico:</p>
+        </div>
+
+        <div class="chapters-grid">
+          <div class="chapter-card c-red" onclick="switchTab('exercises')">
+            <div class="chapter-left">
+              <div class="chapter-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M6.5 6.5h11M6.5 17.5h11M4 9v6M20 9v6M2 10.5v3M22 10.5v3M12 6.5v11"/>
+                </svg>
+              </div>
+              <div>
+                <div class="chapter-num">Capitolo 01</div>
+                <div class="chapter-title">Libreria Esercizi</div>
+                <div class="chapter-desc">Distretti muscolari, 4 step, focus e posizione trainer</div>
+              </div>
+            </div>
+            <div class="chapter-right">
+              <span class="chapter-count">${state.data.exercises.length}</span>
+              <span class="chapter-arrow">›</span>
+            </div>
+          </div>
+
+          <div class="chapter-card c-amber" onclick="switchTab('intensity')">
+            <div class="chapter-left">
+              <div class="chapter-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                </svg>
+              </div>
+              <div>
+                <div class="chapter-num">Capitolo 02</div>
+                <div class="chapter-title">Tecniche di Intensità</div>
+                <div class="chapter-desc">Rest-Pause, Drop Set, protocolli e gestione cedimento</div>
+              </div>
+            </div>
+            <div class="chapter-right">
+              <span class="chapter-count">${state.data.intensity.length}</span>
+              <span class="chapter-arrow">›</span>
+            </div>
+          </div>
+
+          <div class="chapter-card c-green" onclick="switchTab('specializations')">
+            <div class="chapter-left">
+              <div class="chapter-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <circle cx="12" cy="12" r="6"/>
+                  <circle cx="12" cy="12" r="2"/>
+                </svg>
+              </div>
+              <div>
+                <div class="chapter-num">Capitolo 03</div>
+                <div class="chapter-title">Specializzazioni</div>
+                <div class="chapter-desc">Come e perché priorizzare compartimenti carenti</div>
+              </div>
+            </div>
+            <div class="chapter-right">
+              <span class="chapter-count">${state.data.specializations.length}</span>
+              <span class="chapter-arrow">›</span>
+            </div>
+          </div>
+
+          <div class="chapter-card c-blue" onclick="switchTab('vocabulary')">
+            <div class="chapter-left">
+              <div class="chapter-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="chapter-num">Capitolo 04</div>
+                <div class="chapter-title">Vocabolario (A–Z)</div>
+                <div class="chapter-desc">Glossario tecnico ordinato alfabeticamente</div>
+              </div>
+            </div>
+            <div class="chapter-right">
+              <span class="chapter-count">${state.data.vocabulary.length}</span>
+              <span class="chapter-arrow">›</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderMuscleGrid(container) {
+      let html = `
+        <div class="section-header">
+          <span class="section-subtitle">Seleziona un distretto muscolare</span>
+          <button class="primary-btn" onclick="openExerciseForm()">+ Esercizio</button>
+        </div>
+        <div class="muscle-grid">
+      `;
+
+      MUSCLE_GROUPS.forEach(muscle => {
+        const count = state.data.exercises.filter(e => e.muscle === muscle).length;
+        html += `
+          <div class="muscle-card" onclick="selectMuscle('${muscle}')">
+            <div class="muscle-title">${muscle}</div>
+            <div class="muscle-count">${count} ${count === 1 ? 'esercizio' : 'esercizi'}</div>
+          </div>
+        `;
+      });
+
+      html += `</div>`;
+      container.innerHTML = html;
+    }
+
+    function selectMuscle(muscle) {
+      state.selectedMuscle = muscle;
+      render();
+    }
+
+    function renderExerciseList(container) {
+      const q = state.searchQuery.toLowerCase();
+      const filtered = state.data.exercises.filter(ex => {
+        const matchMuscle = ex.muscle === state.selectedMuscle;
+        const matchEq = state.equipmentFilter === 'Tutti' || ex.equipment === state.equipmentFilter;
+        const matchQuery = !q || ex.name.toLowerCase().includes(q) || (ex.focus && ex.focus.toLowerCase().includes(q));
+        return matchMuscle && matchEq && matchQuery;
+      });
+
+      let html = `
+        <div class="section-header">
+          <span class="section-subtitle">${filtered.length} esercizi trovati</span>
+          <button class="primary-btn" onclick="openExerciseForm(null, '${state.selectedMuscle}')">+ Aggiungi</button>
+        </div>
+        <input class="search-box" type="search" placeholder="Cerca esercizio o muscolo target..." value="${escapeHtml(state.searchQuery)}" oninput="updateSearch(this.value)" />
+        <div class="filter-row">
+          ${EQUIPMENTS.map(eq => `
+            <button class="chip ${state.equipmentFilter === eq ? 'active' : ''}" onclick="setEquipment('${eq}')">${eq}</button>
+          `).join('')}
+        </div>
+      `;
+
+      if (filtered.length === 0) {
+        html += `<div class="empty-state">Nessun esercizio in questa categoria.<br>Tocca <strong>+ Aggiungi</strong> per inserirne uno nuovo.</div>`;
+      } else {
+        html += `<div class="card-list">`;
+        filtered.forEach(ex => {
+          html += `
+            <div class="item-card" onclick="openExerciseDetail('${ex.id}')">
+              <div class="item-top">
+                <div class="item-title">${escapeHtml(ex.name)}</div>
+                <span class="badge">${escapeHtml(ex.equipment)}</span>
+              </div>
+              <div class="item-meta"><strong>Focus:</strong> ${escapeHtml(ex.focus || 'Non specificato')}</div>
+            </div>
+          `;
+        });
+        html += `</div>`;
+      }
+
+      container.innerHTML = html;
+    }
+
+    function setEquipment(eq) {
+      state.equipmentFilter = eq;
+      render();
+    }
+
+    function updateSearch(val) {
+      state.searchQuery = val;
+      render();
+    }
+
+    function openExerciseDetail(id) {
+      state.selectedExerciseId = id;
+      render();
+      window.scrollTo(0, 0);
+    }
+
+    function renderExerciseDetail(container) {
+      const ex = state.data.exercises.find(e => e.id === state.selectedExerciseId);
+      if (!ex) return goBack();
+
+      const steps = [ex.step1, ex.step2, ex.step3, ex.step4].filter(Boolean);
+
+      let mediaHtml = '';
+      if (ex.mediaUrl) {
+        mediaHtml = `
+          <div class="media-frame">
+            <img src="${escapeHtml(ex.mediaUrl)}" alt="${escapeHtml(ex.name)}" />
+          </div>
+        `;
+      } else {
+        mediaHtml = `
+          <div class="media-frame">
+            <div class="anatomy-placeholder">
+              Nessuna immagine allegata
+            </div>
+          </div>
+        `;
+      }
+
+      container.innerHTML = `
+        <div class="detail-box">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:12px;">
+            <h2 style="font-size: 20px; font-weight: 800;">${escapeHtml(ex.name)}</h2>
+            <span class="badge">${escapeHtml(ex.equipment)}</span>
+          </div>
+
+          ${mediaHtml}
+
+          <div class="field-block">
+            <span class="field-label">Descrizione Esecuzione (4 Punti)</span>
+            <div class="step-list">
+              ${steps.length ? steps.map((s, idx) => `
+                <div class="step-row">
+                  <div class="step-num">${idx + 1}</div>
+                  <div class="step-text">${escapeHtml(s)}</div>
+                </div>
+              `).join('') : '<div class="field-value" style="color:var(--text-muted)">Nessun punto inserito.</div>'}
+            </div>
+          </div>
+
+          <div class="field-block">
+            <span class="field-label">Focus Muscolare</span>
+            <div class="field-value">${escapeHtml(ex.focus || '—')}</div>
+          </div>
+
+          <div class="field-block">
+            <span class="field-label amber">Profilo di Resistenza</span>
+            <div class="field-value">${escapeHtml(ex.resistanceProfile || '—')}</div>
+          </div>
+
+          <div class="field-block">
+            <span class="field-label green">Posizione del Trainer</span>
+            <div class="field-value">${escapeHtml(ex.trainerPosition || '—')}</div>
+          </div>
+
+          <div class="field-block">
+            <span class="field-label">Commenti & Note Tecniche</span>
+            <div class="field-value">${escapeHtml(ex.comments || '—')}</div>
+          </div>
+
+          <div class="detail-actions">
+            <button class="secondary-btn" onclick="openExerciseForm('${ex.id}')">Modifica Scheda</button>
+            <button class="danger-btn" onclick="deleteItem('exercises', '${ex.id}')">Elimina</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderIntensity(container) {
+      let html = `
+        <div class="section-header">
+          <span class="section-subtitle">${state.data.intensity.length} tecniche salvate</span>
+          <button class="primary-btn" onclick="openIntensityForm()">+ Tecnica</button>
+        </div>
+        <div class="card-list">
+      `;
+
+      state.data.intensity.forEach(item => {
+        html += `
+          <div class="detail-box" style="margin-bottom:0;">
+            <div class="item-top">
+              <div class="item-title" style="font-size:17px;">${escapeHtml(item.name)}</div>
+              <span class="badge amber">Intensità</span>
+            </div>
+            <div class="field-block">
+              <span class="field-label amber">Meccanismo Fisiologico</span>
+              <div class="field-value">${escapeHtml(item.mechanism || '—')}</div>
+            </div>
+            <div class="field-block">
+              <span class="field-label">Protocollo Applicativo</span>
+              <div class="field-value">${escapeHtml(item.protocol || '—')}</div>
+            </div>
+            <div class="field-block">
+              <span class="field-label">Quando Usarla / Evitarla</span>
+              <div class="field-value">${escapeHtml(item.whenToUse || '—')}</div>
+            </div>
+            <div class="detail-actions">
+              <button class="secondary-btn" onclick="openIntensityForm('${item.id}')">Modifica</button>
+              <button class="danger-btn" onclick="deleteItem('intensity', '${item.id}')">Elimina</button>
+            </div>
+          </div>
+        `;
+      });
+
+      html += `</div>`;
+      container.innerHTML = html;
+    }
+
+    function renderSpecializations(container) {
+      let html = `
+        <div class="section-header">
+          <span class="section-subtitle">${state.data.specializations.length} protocolli salvati</span>
+          <button class="primary-btn" onclick="openSpecForm()">+ Protocollo</button>
+        </div>
+        <div class="card-list">
+      `;
+
+      state.data.specializations.forEach(item => {
+        html += `
+          <div class="detail-box" style="margin-bottom:0;">
+            <div class="item-top">
+              <div class="item-title" style="font-size:17px;">${escapeHtml(item.muscle)}</div>
+              <span class="badge green">Specializzazione</span>
+            </div>
+            <div class="field-block">
+              <span class="field-label green">Perché e Come Specializzare</span>
+              <div class="field-value">${escapeHtml(item.rationale || '—')}</div>
+            </div>
+            <div class="field-block">
+              <span class="field-label">Frequenza & Volume Target</span>
+              <div class="field-value"><strong>Frequenza:</strong> ${escapeHtml(item.frequency || '—')}\n<strong>Volume:</strong> ${escapeHtml(item.volume || '—')}</div>
+            </div>
+            <div class="field-block">
+              <span class="field-label">Esercizi Chiave</span>
+              <div class="field-value">${escapeHtml(item.keyExercises || '—')}</div>
+            </div>
+            <div class="detail-actions">
+              <button class="secondary-btn" onclick="openSpecForm('${item.id}')">Modifica</button>
+              <button class="danger-btn" onclick="deleteItem('specializations', '${item.id}')">Elimina</button>
+            </div>
+          </div>
+        `;
+      });
+
+      html += `</div>`;
+      container.innerHTML = html;
+    }
+
+    function renderVocabulary(container) {
+      const q = state.searchQuery.toLowerCase();
+      const sorted = [...state.data.vocabulary]
+        .filter(v => !q || v.term.toLowerCase().includes(q) || v.definition.toLowerCase().includes(q))
+        .sort((a, b) => a.term.localeCompare(b.term, 'it', { sensitivity: 'base' }));
+
+      const groups = {};
+      sorted.forEach(item => {
+        const letter = (item.term.trim()[0] || '#').toUpperCase();
+        if (!groups[letter]) groups[letter] = [];
+        groups[letter].push(item);
+      });
+
+      let html = `
+        <div class="section-header">
+          <span class="section-subtitle">${sorted.length} termini in ordine alfabetico</span>
+          <button class="primary-btn" onclick="openVocabForm()">+ Termine</button>
+        </div>
+        <input class="search-box" type="search" placeholder="Cerca termine nel vocabolario..." value="${escapeHtml(state.searchQuery)}" oninput="updateSearch(this.value)" />
+      `;
+
+      if (sorted.length === 0) {
+        html += `<div class="empty-state">Nessun termine trovato.<br>Tocca <strong>+ Termine</strong> per aggiungere una definizione.</div>`;
+      } else {
+        Object.keys(groups).sort((a, b) => a.localeCompare(b, 'it')).forEach(letter => {
+          html += `<div class="alpha-group"><div class="alpha-letter">${letter}</div><div class="card-list">`;
+          groups[letter].forEach(item => {
+            html += `
+              <div class="item-card" style="cursor:default;">
+                <div class="item-top">
+                  <div class="item-title">${escapeHtml(item.term)}</div>
+                  <div style="display:flex; gap:6px;">
+                    <button class="chip" onclick="openVocabForm('${item.id}')">Modifica</button>
+                    <button class="chip" style="color:#FF453A;" onclick="deleteItem('vocabulary', '${item.id}')">✕</button>
+                  </div>
+                </div>
+                <div style="font-size:14px; color:var(--text-muted); white-space:pre-line;">${escapeHtml(item.definition)}</div>
+              </div>
+            `;
+          });
+          html += `</div></div>`;
+        });
+      }
+
+      container.innerHTML = html;
+    }
+
+    /* Forms */
+    function openExerciseForm(id = null, defaultMuscle = null) {
+      const ex = id ? state.data.exercises.find(e => e.id === id) : null;
+      document.getElementById('modalTitle').textContent = ex ? 'Modifica Esercizio' : 'Nuovo Esercizio';
+
+      const currentMedia = ex?.mediaUrl || '';
+
+      document.getElementById('modalBody').innerHTML = `
+        <form onsubmit="saveExercise(event, '${id || ''}')">
+          <div class="form-group">
+            <label>Gruppo Muscolare</label>
+            <select id="exMuscle" required>
+              ${MUSCLE_GROUPS.map(m => `<option value="${m}" ${(ex ? ex.muscle : (defaultMuscle || MUSCLE_GROUPS[0])) === m ? 'selected' : ''}>${m}</option>`).join('')}
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Nome Esercizio</label>
+            <input id="exName" type="text" required placeholder="Es. Panca Piana Bilanciere" value="${escapeHtml(ex?.name || '')}" />
+          </div>
+          <div class="form-group">
+            <label>Attrezzatura</label>
+            <select id="exEq">
+              ${EQUIPMENTS.filter(e => e !== 'Tutti').map(eq => `<option value="${eq}" ${(ex?.equipment || 'Bilanciere') === eq ? 'selected' : ''}>${eq}</option>`).join('')}
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Immagine Anatomica / GIF</label>
+            <div id="pasteDropBox" class="paste-box" contenteditable="true" onpaste="handlePasteImage(event)" title="Clicca qui e premi Ctrl+V per incollare l'immagine">
+              ${currentMedia ? `<img src="${escapeHtml(currentMedia)}" alt="Preview" />` : `<span style="font-size:12px; color:var(--text-muted);">Clicca qui e premi <strong>Ctrl + V</strong> per incollare l'immagine</span>`}
+            </div>
+            <input type="hidden" id="exMedia" value="${escapeHtml(currentMedia)}" />
+            <button type="button" class="chip" style="margin-top:6px;" onclick="clearPastedImage()">Rimuovi immagine</button>
+          </div>
+          <div class="form-group">
+            <label>Descrizione Esecuzione — Punto 1 (Setup)</label>
+            <textarea id="exStep1" placeholder="Posizionamento, presa, assetto scapolare...">${escapeHtml(ex?.step1 || '')}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Descrizione Esecuzione — Punto 2 (Avvio / Stacco)</label>
+            <textarea id="exStep2" placeholder="Inizio movimento, respirazione...">${escapeHtml(ex?.step2 || '')}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Descrizione Esecuzione — Punto 3 (Fase Eccentrica / Inversione)</label>
+            <textarea id="exStep3" placeholder="Controllo discesa, traiettoria, punto di inversione...">${escapeHtml(ex?.step3 || '')}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Descrizione Esecuzione — Punto 4 (Fase Concentrica / Chiusura)</label>
+            <textarea id="exStep4" placeholder="Spinta/tirata, chiusura senza perdere tensione...">${escapeHtml(ex?.step4 || '')}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Focus Muscolare (Quale parte del muscolo lavora)</label>
+            <input id="exFocus" type="text" placeholder="Es. Fasci clavicolari gran pettorale..." value="${escapeHtml(ex?.focus || '')}" />
+          </div>
+          <div class="form-group">
+            <label>Profilo di Resistenza</label>
+            <textarea id="exRes" placeholder="Dove cade il picco di tensione (allungamento, accorciamento, medio)...">${escapeHtml(ex?.resistanceProfile || '')}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Posizione del Trainer</label>
+            <textarea id="exTrainer" placeholder="Dove si posiziona il trainer per assistenza/controllo...">${escapeHtml(ex?.trainerPosition || '')}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Commenti</label>
+            <textarea id="exComments" placeholder="Errori comuni, adattamenti antropometrici...">${escapeHtml(ex?.comments || '')}</textarea>
+          </div>
+          <button type="submit" class="primary-btn" style="width:100%; justify-content:center; padding:14px;">Salva Esercizio</button>
+        </form>
+      `;
+      openModal('formModal');
+    }
+
+    function handlePasteImage(e) {
+      const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf('image') !== -1) {
+          const blob = items[i].getAsFile();
+          const reader = new FileReader();
+          reader.onload = function(evt) {
+            const base64 = evt.target.result;
+            document.getElementById('exMedia').value = base64;
+            document.getElementById('pasteDropBox').innerHTML = `<img src="${base64}" alt="Incollata" />`;
+          };
+          reader.readAsDataURL(blob);
+          e.preventDefault();
+          break;
+        }
+      }
+    }
+
+    function clearPastedImage() {
+      document.getElementById('exMedia').value = '';
+      document.getElementById('pasteDropBox').innerHTML = `<span style="font-size:12px; color:var(--text-muted);">Clicca qui e premi <strong>Ctrl + V</strong> per incollare l'immagine</span>`;
+    }
+
+    function saveExercise(e, id) {
+      e.preventDefault();
+      const payload = {
+        id: id || 'ex_' + Date.now(),
+        muscle: document.getElementById('exMuscle').value,
+        name: document.getElementById('exName').value.trim(),
+        equipment: document.getElementById('exEq').value,
+        mediaUrl: document.getElementById('exMedia').value.trim(),
+        step1: document.getElementById('exStep1').value.trim(),
+        step2: document.getElementById('exStep2').value.trim(),
+        step3: document.getElementById('exStep3').value.trim(),
+        step4: document.getElementById('exStep4').value.trim(),
+        focus: document.getElementById('exFocus').value.trim(),
+        resistanceProfile: document.getElementById('exRes').value.trim(),
+        trainerPosition: document.getElementById('exTrainer').value.trim(),
+        comments: document.getElementById('exComments').value.trim()
+      };
+
+      if (id) {
+        const idx = state.data.exercises.findIndex(item => item.id === id);
+        if (idx !== -1) state.data.exercises[idx] = payload;
+      } else {
+        state.data.exercises.push(payload);
+      }
+
+      saveData();
+      closeModal('formModal');
+      render();
+    }
+
+    function openIntensityForm(id = null) {
+      const item = id ? state.data.intensity.find(i => i.id === id) : null;
+      document.getElementById('modalTitle').textContent = item ? 'Modifica Tecnica' : 'Nuova Tecnica di Intensità';
+      document.getElementById('modalBody').innerHTML = `
+        <form onsubmit="saveIntensity(event, '${id || ''}')">
+          <div class="form-group">
+            <label>Nome Tecnica</label>
+            <input id="intName" type="text" required placeholder="Es. Myo-Reps, Cluster Set..." value="${escapeHtml(item?.name || '')}" />
+          </div>
+          <div class="form-group">
+            <label>Meccanismo Fisiologico</label>
+            <input id="intMech" type="text" placeholder="Es. Tensione meccanica / Stress metabolico" value="${escapeHtml(item?.mechanism || '')}" />
+          </div>
+          <div class="form-group">
+            <label>Protocollo Applicativo (Serie, Recuperi, RIR)</label>
+            <textarea id="intProt" required placeholder="Descrivi come eseguirla...">${escapeHtml(item?.protocol || '')}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Quando Usarla / Evitarla</label>
+            <textarea id="intWhen" placeholder="Su quali esercizi e in che fase...">${escapeHtml(item?.whenToUse || '')}</textarea>
+          </div>
+          <button type="submit" class="primary-btn" style="width:100%; justify-content:center; padding:14px;">Salva Tecnica</button>
+        </form>
+      `;
+      openModal('formModal');
+    }
+
+    function saveIntensity(e, id) {
+      e.preventDefault();
+      const payload = {
+        id: id || 'int_' + Date.now(),
+        name: document.getElementById('intName').value.trim(),
+        mechanism: document.getElementById('intMech').value.trim(),
+        protocol: document.getElementById('intProt').value.trim(),
+        whenToUse: document.getElementById('intWhen').value.trim()
+      };
+      if (id) {
+        const idx = state.data.intensity.findIndex(i => i.id === id);
+        if (idx !== -1) state.data.intensity[idx] = payload;
+      } else {
+        state.data.intensity.push(payload);
+      }
+      saveData();
+      closeModal('formModal');
+      render();
+    }
+
+    function openSpecForm(id = null) {
+      const item = id ? state.data.specializations.find(s => s.id === id) : null;
+      document.getElementById('modalTitle').textContent = item ? 'Modifica Specializzazione' : 'Nuova Specializzazione';
+      document.getElementById('modalBody').innerHTML = `
+        <form onsubmit="saveSpec(event, '${id || ''}')">
+          <div class="form-group">
+            <label>Compartimento Muscolare Carente</label>
+            <input id="specMuscle" type="text" required placeholder="Es. Deltoide Laterale, Gambe, Dorso..." value="${escapeHtml(item?.muscle || '')}" />
+          </div>
+          <div class="form-group">
+            <label>Perché e Come Specializzare (Razionale)</label>
+            <textarea id="specRat" required placeholder="Gestione fatica sistemica, mantenimento altri gruppi...">${escapeHtml(item?.rationale || '')}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Frequenza Settimanale</label>
+            <input id="specFreq" type="text" placeholder="Es. 3 volte a settimana" value="${escapeHtml(item?.frequency || '')}" />
+          </div>
+          <div class="form-group">
+            <label>Volume Target & Mantenimento</label>
+            <input id="specVol" type="text" placeholder="Es. 16-20 serie target, 6 serie mantenimento altri" value="${escapeHtml(item?.volume || '')}" />
+          </div>
+          <div class="form-group">
+            <label>Esercizi Chiave</label>
+            <textarea id="specEx" placeholder="Esercizi prioritari scelti per questo distretto...">${escapeHtml(item?.keyExercises || '')}</textarea>
+          </div>
+          <button type="submit" class="primary-btn" style="width:100%; justify-content:center; padding:14px;">Salva Protocollo</button>
+        </form>
+      `;
+      openModal('formModal');
+    }
+
+    function saveSpec(e, id) {
+      e.preventDefault();
+      const payload = {
+        id: id || 'spec_' + Date.now(),
+        muscle: document.getElementById('specMuscle').value.trim(),
+        rationale: document.getElementById('specRat').value.trim(),
+        frequency: document.getElementById('specFreq').value.trim(),
+        volume: document.getElementById('specVol').value.trim(),
+        keyExercises: document.getElementById('specEx').value.trim()
+      };
+      if (id) {
+        const idx = state.data.specializations.findIndex(s => s.id === id);
+        if (idx !== -1) state.data.specializations[idx] = payload;
+      } else {
+        state.data.specializations.push(payload);
+      }
+      saveData();
+      closeModal('formModal');
+      render();
+    }
+
+    function openVocabForm(id = null) {
+      const item = id ? state.data.vocabulary.find(v => v.id === id) : null;
+      document.getElementById('modalTitle').textContent = item ? 'Modifica Termine' : 'Nuovo Termine Vocabolario';
+      document.getElementById('modalBody').innerHTML = `
+        <form onsubmit="saveVocab(event, '${id || ''}')">
+          <div class="form-group">
+            <label>Termine / Concetto (verrà ordinato dalla A alla Z)</label>
+            <input id="vocTerm" type="text" required placeholder="Es. Braccio di leva, mTOR, Tensione meccanica..." value="${escapeHtml(item?.term || '')}" />
+          </div>
+          <div class="form-group">
+            <label>Definizione</label>
+            <textarea id="vocDef" required placeholder="Scrivi la definizione chiara e precisa...">${escapeHtml(item?.definition || '')}</textarea>
+          </div>
+          <button type="submit" class="primary-btn" style="width:100%; justify-content:center; padding:14px;">Salva nel Vocabolario</button>
+        </form>
+      `;
+      openModal('formModal');
+    }
+
+    function saveVocab(e, id) {
+      e.preventDefault();
+      const payload = {
+        id: id || 'voc_' + Date.now(),
+        term: document.getElementById('vocTerm').value.trim(),
+        definition: document.getElementById('vocDef').value.trim()
+      };
+      if (id) {
+        const idx = state.data.vocabulary.findIndex(v => v.id === id);
+        if (idx !== -1) state.data.vocabulary[idx] = payload;
+      } else {
+        state.data.vocabulary.push(payload);
+      }
+      saveData();
+      closeModal('formModal');
+      render();
+    }
+
+    function deleteItem(collection, id) {
+      if (!confirm('Vuoi eliminare definitivamente questo elemento?')) return;
+      state.data[collection] = state.data[collection].filter(item => item.id !== id);
+      if (collection === 'exercises' && state.selectedExerciseId === id) {
+        state.selectedExerciseId = null;
+      }
+      saveData();
+      render();
+    }
+
+    function openModal(id) {
+      document.getElementById(id).classList.add('open');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    function openBackupModal() {
+      openModal('backupModal');
+    }
+
+    function exportData() {
+      const blob = new Blob([JSON.stringify(state.data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const date = new Date().toISOString().slice(0, 10);
+      a.href = url;
+      a.download = `manuale-sala-pesi-${date}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importData(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (imported.exercises && imported.vocabulary) {
+            state.data = imported;
+            saveData();
+            closeModal('backupModal');
+            render();
+            alert('Backup importato con successo!');
+          } else {
+            alert('File non valido.');
+          }
+        } catch (err) {
+          alert('Errore durante la lettura del file.');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    render();
+  </script>
+</body>
+</html>
