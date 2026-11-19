@@ -145,7 +145,6 @@
       letter-spacing: 0.2px;
     }
 
-    /* Nuvola Speedy Compatta + 7 Sfere del Drago */
     .chapters-grid {
       display: flex;
       flex-direction: column;
@@ -333,7 +332,6 @@
       font-weight: 900;
     }
 
-    /* Section Header & Controls */
     .section-header {
       display: flex;
       justify-content: space-between;
@@ -431,7 +429,6 @@
       color: var(--kinto-gold);
     }
 
-    /* 6 Distretti Muscolari tutti associati a Goku */
     .muscle-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -542,7 +539,6 @@
       cursor: pointer;
     }
 
-    /* Banner Falsi Miti (Freezer) */
     .villain-banner {
       background: linear-gradient(135deg, rgba(155, 93, 229, 0.18) 0%, rgba(20, 20, 24, 0.96) 100%);
       border: 1px solid rgba(155, 93, 229, 0.45);
@@ -824,7 +820,6 @@
       outline: none;
     }
 
-    /* Bottom Navigation Bar: 4 voci (Sfere, Falsi Miti, Integratori, Impostazioni) */
     nav {
       position: fixed;
       bottom: 0;
@@ -1015,7 +1010,7 @@
         <polyline points="16 18 22 12 16 6"/>
         <polyline points="8 6 2 12 8 18"/>
       </svg>
-      Codice
+      Esporta
     </button>
   </header>
 
@@ -1064,7 +1059,7 @@
   </div>
 
   <script>
-    const STORAGE_KEY = 'manuale_sala_pesi_db7_v6';
+    const STORAGE_KEY = 'manuale_sala_pesi_db7_v7';
 
     const MUSCLE_GROUPS = [
       'Pettorali',
@@ -1257,8 +1252,8 @@
     function loadData() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY) ||
-                    localStorage.getItem('manuale_sala_pesi_db7_v5') ||
-                    localStorage.getItem('manuale_sala_pesi_db7_v4');
+                    localStorage.getItem('manuale_sala_pesi_db7_v6') ||
+                    localStorage.getItem('manuale_sala_pesi_db7_v5');
         if (!raw) return JSON.parse(JSON.stringify(DEFAULT_DATA));
         const parsed = JSON.parse(raw);
         return {
@@ -1299,7 +1294,7 @@
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
       } catch (e) {
-        alert('Spazio del browser quasi pieno. Usa Impostazioni -> Genera Codice per salvare tutto su GitHub!');
+        alert('Spazio del browser quasi pieno. Vai in Impostazioni -> Invia File index.html per salvare tutto su GitHub!');
       }
     }
 
@@ -1544,19 +1539,22 @@
 
     function renderImpostazioni(container) {
       container.innerHTML = `
-        <div class="detail-box" style="border-color: rgba(58, 134, 255, 0.45);">
+        <div class="detail-box" style="border-color: rgba(46, 196, 182, 0.45);">
           <div class="item-top">
-            <div class="item-title" style="font-size: 17px;">1. Esporta Codice Completo per GitHub</div>
-            <span class="badge blue">Consigliato</span>
+            <div class="item-title" style="font-size: 17px;">1. Invia File index.html su WhatsApp</div>
+            <span class="badge green">Senza Limiti</span>
           </div>
           <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 14px;">
-            Premi il pulsante qui sotto per generare e copiare <strong>l’intero file index.html</strong> con già dentro <strong>tutte le foto</strong> e tutti i testi che hai caricato su questo telefono. Poi invialo sul PC e incollalo su GitHub!
+            Invia direttamente il file completo <strong>index.html</strong> come allegato su WhatsApp (o salvalo su File): dentro ci sono già <strong>tutte le foto</strong> e tutti i testi!
           </p>
-          <button class="primary-btn" style="width:100%; justify-content:center; padding:14px; background: var(--blue); box-shadow: 0 4px 14px rgba(58, 134, 255, 0.3);" onclick="generateAndCopyFullCode()">
-            Genera e Copia Codice Completo
+          <button class="primary-btn" style="width:100%; justify-content:center; padding:14px; background: var(--green); color: #051A18; box-shadow: 0 4px 14px rgba(46, 196, 182, 0.3); margin-bottom: 10px;" onclick="shareIndexHtmlFile()">
+            Invia File index.html (WhatsApp / File)
+          </button>
+          <button class="secondary-btn" style="width:100%; border-color: var(--blue); color: var(--blue);" onclick="generateAndCopyFullCode()">
+            Oppure Copia Testo Negli Appunti
           </button>
           <div id="codeCopyStatus" style="font-size: 12.5px; color: var(--green); font-weight: 700; margin-top: 10px; display: none;"></div>
-          <textarea id="generatedCodeBox" class="code-export-box" readonly placeholder="Il codice completo apparirà qui pronto per essere copiato..." style="display: ${state.generatedHtmlCode ? 'block' : 'none'};">${escapeHtml(state.generatedHtmlCode)}</textarea>
+          <textarea id="generatedCodeBox" class="code-export-box" readonly style="display: ${state.generatedHtmlCode ? 'block' : 'none'};">${escapeHtml(state.generatedHtmlCode)}</textarea>
         </div>
 
         <div class="detail-box">
@@ -1564,9 +1562,6 @@
             <div class="item-title" style="font-size: 16px;">2. Backup / Ripristino File (.json)</div>
             <span class="badge amber">Opzionale</span>
           </div>
-          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
-            Condividi o salva una copia di sicurezza dei dati in formato .json tramite il menu iPhone / PC.
-          </p>
           <button class="secondary-btn" style="width: 100%; margin-bottom: 10px; border-color: var(--kinto-gold); color: var(--kinto-gold);" onclick="exportData()">
             Condividi / Scarica Backup (.json)
           </button>
@@ -1578,20 +1573,50 @@
       `;
     }
 
-    async function generateAndCopyFullCode() {
+    function buildFullHtmlString() {
       const currentDocHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
       const startMarker = '/* DEFAULT_DATA_START */';
       const endMarker = '/* DEFAULT_DATA_END */';
       const startIdx = currentDocHtml.indexOf(startMarker);
       const endIdx = currentDocHtml.indexOf(endMarker);
 
-      let finalCode = currentDocHtml;
       if (startIdx !== -1 && endIdx !== -1) {
         const serializedData = JSON.stringify(state.data, null, 2);
         const replacement = `${startMarker}\n    const DEFAULT_DATA = ${serializedData};\n    `;
-        finalCode = currentDocHtml.slice(0, startIdx) + replacement + currentDocHtml.slice(endIdx);
+        return currentDocHtml.slice(0, startIdx) + replacement + currentDocHtml.slice(endIdx);
+      }
+      return currentDocHtml;
+    }
+
+    async function shareIndexHtmlFile() {
+      const finalCode = buildFullHtmlString();
+      const file = new File([finalCode], 'index.html', { type: 'text/html' });
+
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({
+            files: [file],
+            title: 'index.html - Manuale Sala Pesi'
+          });
+          return;
+        } catch (err) {
+          if (err.name === 'AbortError') return;
+        }
       }
 
+      const blob = new Blob([finalCode], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'index.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    async function generateAndCopyFullCode() {
+      const finalCode = buildFullHtmlString();
       state.generatedHtmlCode = finalCode;
       const box = document.getElementById('generatedCodeBox');
       const status = document.getElementById('codeCopyStatus');
@@ -1602,13 +1627,13 @@
         await navigator.clipboard.writeText(finalCode);
         status.style.display = 'block';
         status.style.color = 'var(--green)';
-        status.textContent = '✓ Codice completo copiato negli appunti! Ora incollalo su WhatsApp/Mail per aprirlo sul PC e metterlo su GitHub.';
+        status.textContent = '✓ Codice completo copiato negli appunti!';
       } catch (err) {
         box.focus();
         box.select();
         status.style.display = 'block';
         status.style.color = 'var(--kinto-gold)';
-        status.textContent = 'Codice generato nel riquadro qui sotto: tocca dentro il riquadro, fai "Seleziona tutto" e "Copia".';
+        status.textContent = 'Codice generato nel riquadro qui sotto.';
       }
     }
 
@@ -2213,7 +2238,6 @@
       container.innerHTML = html;
     }
 
-    /* Form Modals */
     function openExerciseForm(id = null, defaultMuscle = null) {
       const ex = id ? state.data.exercises.find(e => e.id === id) : null;
       document.getElementById('modalTitle').textContent = ex ? 'Modifica Esercizio' : 'Nuovo Esercizio';
